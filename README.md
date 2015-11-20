@@ -37,8 +37,14 @@ Puis Rajouter :
 python /usr/local/Cellar/python/2.7.5/python
 ./run.sh
 python scripts/scramble.py -c config/galaxy.ini -e pysam (INUTILE)
-pip install pysam
-pip install certifi
+
+Changement galaxy.ini 
+> IP / PORT
+
+Changement .ven/bin/activate
+> export PYTHONPATH='';
+
+
 Retour sur la bdd sqlLite ds sample.ini
 Dans run.sh , ajout  export PYTHONPATH=''; CA MARCHE !
 Repassage sur postgres :
