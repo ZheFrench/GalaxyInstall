@@ -1,5 +1,8 @@
-# H1 GalaxyInstall - Prod 234
+# GalaxyInstall - Prod 234
 
+Download
+
+***
 
  git clone https://github.com/galaxyproject/galaxy/
  cd galaxy
@@ -15,5 +18,6 @@
  
  Install PostgreSQL
 
-psql -U postgres galaxy_prod
-create database galaxy template galaxy_prod
+psql -U postgres galaxy_prod (password demandé)
+create database galaxy template galaxy_prod 
+Eteindre Galaxy pour permettre la copie de l'ancienne BDD
