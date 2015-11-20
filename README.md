@@ -5,7 +5,9 @@
 ***
 
  > git clone https://github.com/galaxyproject/galaxy/
+ 
  > cd galaxy
+ 
  > git checkout -b master origin/master
  
  # Pas de pip. Initialement Python 2.6. Besoin install python 2.7 via virtualenv.
