@@ -1,4 +1,4 @@
-# GalaxyInstall - Prod 234
+# H1 GalaxyInstall - Prod 234
 
 
  git clone https://github.com/galaxyproject/galaxy/
@@ -14,3 +14,6 @@
  virtualenv .venv
  
  Install PostgreSQL
+
+psql -U postgres galaxy_prod
+create database galaxy template galaxy_prod
