@@ -10,7 +10,7 @@
  
  > git checkout -b master origin/master
  
- # Pas de pip. Initialement Python 2.6. Besoin install python 2.7 via virtualenv.
+ # Pas de pip. Initialement Python 2.6. Besoin install python 2.7 et virtualenv.
  
  su 'user_root'
  brew install python
@@ -21,13 +21,12 @@
  Install PostgreSQL
 
 psql -U postgres galaxy_prod (password demandé)
-create database galaxy template galaxy_prod 
+create database galaxy template galaxy_prod ;
+GRANT ALL PRIVILEGES ON DATABASE galaxy_prod to galaxy_prod_user; 
 Eteindre Galaxy pour permettre la copie de l'ancienne BDD
 
-Galaxy.ini 
-port=8003
-Decommenter le host 127.0.0.1 et mettre l'ip du serveur
-database_connection=postgresql://galaxy_prod_usr:galaxy@localhost/galaxy
+Changement BDD dans galaxy.ini 
+> database_connection=postgresql://galaxy_prod_usr:galaxy@localhost/galaxy
 
 source .ven/bin/activate (INUTILE)
 Dans ./manage_db.sh
