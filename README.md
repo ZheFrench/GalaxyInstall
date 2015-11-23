@@ -146,3 +146,7 @@ http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 **Configuration FTP** 
 
 https://wiki.galaxyproject.org/Admin/Config/UploadviaFTP
+
+**Instance Galaxy Interne + Cluster Calcul Externe** 
+
+https://github.com/galaxyproject/pulsar
