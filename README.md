@@ -1,5 +1,9 @@
 # GalaxyInstall - Prod
 
+**1ère Mise à jour Juin 2015 du serveur 137**
+
+https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
+
 **Download**
 
 ***
@@ -83,7 +87,7 @@
 >             threadpool_kill_thread_limit = 10800
 
 
-**[server:main_job_handler]** 
+**[server:main] NE PAS CHANGER LE NOM ** 
 
 >         use = egg:Paste#http
 
@@ -96,6 +100,9 @@
 >         \#threadpool_workers = 10
 
 >         threadpool_kill_thread_limit = 10800
+
+
+> cp ./config/job_conf.xml.sample_basic ./config/job_conf.xml
 
 **Configuration de Apache pour le web balancing** 
 
