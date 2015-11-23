@@ -108,17 +108,30 @@ http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 > touch  galaxy.dev.conf
 
 > <VirtualHost *:80>
+
 >         DocumentRoot "/Library/WebServer/Documents"
+
 >         ServerName localhost
+
 >         ServerAdmin webmaster@localhost
+
 >         ErrorLog "/private/var/log/apache2/galaxy.dev.local-error_log"
+
 >         CustomLog "/private/var/log/apache2/galaxy.dev.local-access_log" common
+
 >         RewriteEngine on
+
 >        <Proxy balancer://galaxy>
+
 >            BalancerMember http://localhost:8081
+
 >            BalancerMember http://localhost:8082
+
 >        </Proxy>
+
 >        RewriteRule ^(.*) balancer://galaxy$1 [$P]
+
 ></VirtualHost>
+
 
  > sudo apachectl restart
