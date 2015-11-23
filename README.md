@@ -107,7 +107,7 @@ http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 > mkdir /etc/apache2/vhosts/
 > touch  galaxy.dev.conf
 
-> <VirtualHost *:80>
+>         <VirtualHost *:80>
 
 >         DocumentRoot "/Library/WebServer/Documents"
 
@@ -121,7 +121,7 @@ http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 
 >         RewriteEngine on
 
->        <Proxy balancer://galaxy>
+>         <Proxy balancer://galaxy>
 
 >            BalancerMember http://localhost:8081
 
@@ -131,7 +131,7 @@ http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 
 >        RewriteRule ^(.*) balancer://galaxy$1 [$P]
 
-></VirtualHost>
+>        </VirtualHost>
 
 
  > sudo apachectl restart
