@@ -47,11 +47,9 @@
 
 > mv galaxi.ini.sample galaxi.ini
 
-> database_connection=postgresql://galaxy_dev_user:galaxy_dev0112015@localhost/galaxy_dev0112015
+> database_connection=postgresql://galaxy_dev_user:galaxy_dev0112015@localhost/galaxy_dev0112015 (fichier galaxy.ini)
 
-(fichier galaxy.ini)
 
-> GALAXY_RUN_ALL=1 sh ./run.sh --daemon
 
 **Structuration des "Handlers"** 
 
@@ -99,7 +97,7 @@
 
 >         threadpool_kill_thread_limit = 10800
 
-**Configuration de Apache pour le web balancing"** 
+**Configuration de Apache pour le web balancing** 
 
 http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 
@@ -137,3 +135,14 @@ http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 
 
  > sudo apachectl restart
+ 
+ > GALAXY_RUN_ALL=1 sh ./run.sh --daemon
+ 
+**Authentification des utilisateurs** 
+
+ https://wiki.galaxyproject.org/Admin/Config/ApacheExternalUserAuth
+ https://wiki.galaxyproject.org/Admin/Config/ExternalUserAuth
+ 
+**Configuration FTP** 
+
+https://wiki.galaxyproject.org/Admin/Config/UploadviaFTP
