@@ -10,7 +10,7 @@
  
  > git checkout -b master origin/master
  
-**Install dernière version de python et virtualenv**
+**Installation de la dernière version de python et virtualenv**
  
  
 ***
@@ -22,7 +22,7 @@
  > cd galaxy
  > virtualenv .venv
 
-**Copie ancienne bdd PostgreSQL de Galaxy et mise à jour** 
+**Copie de l'ancienne BDD PostgreSQL de Galaxy** 
 
 > su davidbaux (password)
 > sudo launchctl unload /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
@@ -39,6 +39,34 @@
 > database_connection=postgresql://galaxy_dev_user:galaxy_dev0112015@localhost/galaxy_dev0112015
 (fichier galaxy.ini)
 
+> GALAXY_RUN_ALL=1 sh ./run.sh --daemon
 
+**Structuration des "Handlers"** 
 
+> **[server:web1]** 
+> use = egg:Paste#http
+> port = 8081
+> host = 194.167.35.137
+> use_threadpool = True
+> #threadpool_workers = 10
+> threadpool_kill_thread_limit = 10800
 
+** [server:web2]** 
+
+> use = egg:Paste#http
+> port = 8081
+> host = 194.167.35.137
+> use_threadpool = True
+> #threadpool_workers = 10
+> threadpool_kill_thread_limit = 10800
+
+** [server:main_job_handler]** 
+
+> use = egg:Paste#http
+> port = 8083
+> host = 194.167.35.137
+> use_threadpool = True
+> #threadpool_workers = 10
+> threadpool_kill_thread_limit = 10800
+
+http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
