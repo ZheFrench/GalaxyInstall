@@ -95,16 +95,18 @@
 
 > use_threadpool = True
 
-> \#threadpool_workers = 10
+>    \#threadpool_workers = 10
 
-> threadpool_kill_thread_limit = 10800
+>    threadpool_kill_thread_limit = 10800
 
 **Configuration de Apache pour le web balancing"** 
 
 http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 
 > Include /private/etc/apache2/vhosts/*.conf (Ajouter dans fichier /etc/apache2/httpd.conf)
+
 > mkdir /etc/apache2/vhosts/
+
 > touch  galaxy.dev.conf
 
 >         <VirtualHost *:80>
