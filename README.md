@@ -60,15 +60,10 @@
 **[server:web2]**
 
 > use = egg:Paste#http
-
 > port = 8081
-
 > host = 194.167.35.137
-
 > use_threadpool = True
-
 > \#threadpool_workers = 10
-
 > threadpool_kill_thread_limit = 10800
 
 
