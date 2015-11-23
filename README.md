@@ -87,17 +87,17 @@
 
 **[server:main_job_handler]** 
 
-> use = egg:Paste#http
+>         use = egg:Paste#http
 
-> port = 8083
+>         port = 8083
 
-> host = 194.167.35.137
+>         host = 194.167.35.137
 
-> use_threadpool = True
+>         use_threadpool = True
 
->    \#threadpool_workers = 10
+>         \#threadpool_workers = 10
 
->    threadpool_kill_thread_limit = 10800
+>         threadpool_kill_thread_limit = 10800
 
 **Configuration de Apache pour le web balancing"** 
 
