@@ -57,32 +57,32 @@
 
 **[server:web1]** 
 
-> use = egg:Paste#http
+>             use = egg:Paste#http
 
-> port = 8081
+>             port = 8081
 
-> host = 194.167.35.137
+>             host = 194.167.35.137
 
-> use_threadpool = True
+>             use_threadpool = True
 
-> \#threadpool_workers = 10
+>             \#threadpool_workers = 10
 
-> threadpool_kill_thread_limit = 10800
+>             threadpool_kill_thread_limit = 10800
 
 
 **[server:web2]**
 
-> use = egg:Paste#http
+>             use = egg:Paste#http
 
-> port = 8082
+>             port = 8082
 
-> host = 194.167.35.137
+>             host = 194.167.35.137
 
-> use_threadpool = True
+>             use_threadpool = True
 
-> \#threadpool_workers = 10
+>             \#threadpool_workers = 10
 
-> threadpool_kill_thread_limit = 10800
+>             threadpool_kill_thread_limit = 10800
 
 
 **[server:main_job_handler]** 
