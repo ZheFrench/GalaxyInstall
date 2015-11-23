@@ -10,50 +10,34 @@
  
  > git checkout -b master origin/master
  
- # Pas de pip. Initialement Python 2.6. Besoin install python 2.7 et virtualenv.
+**Install dernière version de python et virtualenv**
  
- su 'user_root'
- brew install python
- /usr/local/Cellar/python/2.7.5/bin/python  # Path install nouveau python
- pip install virtualenv
- virtualenv .venv
  
- Install PostgreSQL
+***
 
-psql -U postgres galaxy_prod (password demandé)
-create database galaxy template galaxy_prod ;
-GRANT ALL PRIVILEGES ON DATABASE galaxy_prod to galaxy_prod_user; 
-Eteindre Galaxy pour permettre la copie de l'ancienne BDD
+ > su 'user_root'
+ > brew install python
+ > /usr/local/Cellar/python/2.7.10  # Path install nouveau python
+ > pip install virtualenv
+ > cd galaxy
+ > virtualenv .venv
 
-Changement BDD dans galaxy.ini 
-> database_connection=postgresql://galaxy_prod_usr:galaxy@localhost/galaxy
+**Copie ancienne bdd PostgreSQL de Galaxy et mise à jour** 
 
-source .ven/bin/activate (INUTILE)
-Dans ./manage_db.sh
-Rajouter :
-export PYTHONPATH='';
-Puis Rajouter :
-python /usr/local/Cellar/python/2.7.5/python
-./run.sh
-python scripts/scramble.py -c config/galaxy.ini -e pysam (INUTILE)
+> su davidbaux (password)
+> sudo launchctl unload /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
 
-Changement galaxy.ini 
-> IP / PORT
+> psql -U _postgres galaxy_dev (password)
+> CREATE DATABASE galaxy_prod0112015 template galaxy_dev;
+> GANT ALL PRIVILEGES ON DATABASE galaxy_dev0112015 TO galaxy_dev_user;
+> Ctrl+D
 
-Changement .ven/bin/activate
-> export PYTHONPATH='';
+> su davidbaux (password)
+> sudo launchctl load /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
 
-
-Retour sur la bdd sqlLite ds sample.ini
-Dans run.sh , ajout  export PYTHONPATH=''; CA MARCHE !
-Repassage sur postgres :
-sh manage_db.sh upgrade CA MARCHE !
-
-Dans Apache :
-sudo nano /private/etc/apache2/sites/000_anay_00_80_.conf
-On a fermé Apache
-On a fermé Galaxy Prod. 
-On est tjs dans la merde.
+> mv galaxi.ini.sample galaxi.ini
+> database_connection=postgresql://galaxy_dev_user:galaxy_dev0112015@localhost/galaxy_dev0112015
+(fichier galaxy.ini)
 
 
 
