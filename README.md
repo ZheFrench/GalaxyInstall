@@ -154,6 +154,7 @@ http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 
 https://wiki.galaxyproject.org/Admin/Config/UploadviaFTP
 http://galacticengineer.blogspot.co.uk/2015/02/ftp-upload-to-galaxy-using-proftpd-and.html
+https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
 
 > su davidbaux (Password)
 
@@ -171,18 +172,27 @@ http://galacticengineer.blogspot.co.uk/2015/02/ftp-upload-to-galaxy-using-proftp
 
 >brew install ProFTPD
 
-=> make INSTALL_USER=`whoami` INSTALL_GROUP=admin install
-==> Caveats
-The config file is in:
-   /usr/local/etc/proftpd.conf
+>           => make INSTALL_USER=`whoami` INSTALL_GROUP=admin install
 
-proftpd may need to be run as root, depending on configuration
+>           ==> Caveats
+
+>           The config file is in:
+
+>              /usr/local/etc/proftpd.conf
+
+>           proftpd may need to be run as root, depending on configuration
+
+>           To have launchd start proftpd at login:
+
+>               ln -sfv /usr/local/opt/proftpd/*.plist ~/Library/LaunchAgents
+
+>           Then to load proftpd now:
+
+>               launchctl load ~/Library/LaunchAgents/homebrew.mxcl.proftpd.plist
 
 
-To have launchd start proftpd at login:
-    ln -sfv /usr/local/opt/proftpd/*.plist ~/Library/LaunchAgents
-Then to load proftpd now:
-    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.proftpd.plist
+
+
 
 **Instance Galaxy Interne + Cluster Calcul Externe** 
 
