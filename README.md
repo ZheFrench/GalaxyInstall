@@ -193,8 +193,23 @@ https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
 
 >               launchctl load ~/Library/LaunchAgents/homebrew.mxcl.proftpd.plist
 
+ > ln -sfv /usr/local/opt/proftpd/*.plist ~/Library/LaunchAgents
+ 
+ > launchctl load ~/Library/LaunchAgents/homebrew.mxcl.proftpd.plist
+ 
+>               bash-3.2$ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.proftpd.plist
+>               Bug: launchctl.c:2425 (25957):13: (dbfd = open(g_job_overrides_db_path, O_RDONLY | O_EXLOCK | O_CREAT, S_IRUSR | S_IWUSR)) != -1
+>               launch_msg(): Socket is not connected
+ 
+ Test Debugging : 
+> /usr/local/Cellar/proftpd/1.3.4d/sbin/proftpd --config  /usr/local/etc/proftpd.conf
 
-
+p2-1bb.iurc.montp.inserm.fr proftpd[79006] p2-1bb.iurc.montp.inserm.fr: ROOT PRIVS: unable to seteuid(): Operation not permitted
+p2-1bb.iurc.montp.inserm.fr proftpd[79006] p2-1bb.iurc.montp.inserm.fr: ROOT PRIVS: unable to setegid(): Operation not permitted
+p2-1bb.iurc.montp.inserm.fr proftpd[79006] p2-1bb.iurc.montp.inserm.fr: RELINQUISH PRIVS: unable to seteuid(PR_ROOT_UID): Operation not permitted
+p2-1bb.iurc.montp.inserm.fr proftpd[79006] p2-1bb.iurc.montp.inserm.fr: RELINQUISH PRIVS: unable to setegid(session.gid): Operation not permitted
+p2-1bb.iurc.montp.inserm.fr proftpd[79006] p2-1bb.iurc.montp.inserm.fr: RELINQUISH PRIVS: unable to seteuid(session.uid): Operation not permitted
+p2-1bb.iurc.montp.inserm.fr proftpd[79006] p2-1bb.iurc.montp.inserm.fr: unable to set uid to 0, current uid: 501
 
 
 **Instance Galaxy Interne + Cluster Calcul Externe** 
