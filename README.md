@@ -39,9 +39,9 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 
 > psql -U _postgres galaxy_dev (password)
 
-> CREATE DATABASE galaxy_prod0112015 template galaxy_dev;
+> CREATE DATABASE galaxy_dev0112015 template galaxy_dev;
 
-> GANT ALL PRIVILEGES ON DATABASE galaxy_dev0112015 TO galaxy_dev_user;
+> GRANT ALL PRIVILEGES ON DATABASE galaxy_dev0112015 TO galaxy_dev_user;
 
 > Ctrl+D
 
@@ -153,7 +153,40 @@ http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 **Configuration FTP** 
 
 https://wiki.galaxyproject.org/Admin/Config/UploadviaFTP
+http://galacticengineer.blogspot.co.uk/2015/02/ftp-upload-to-galaxy-using-proftpd-and.html
+
+> su davidbaux (Password)
+
+> createuser -SDR galaxyftp
+
+> psql galaxy_dev0112015
+
+> ALTER ROLE galaxyftp PASSWORD 'galaxy_dev';
+
+> GRANT SELECT ON galaxy_user TO galaxyftp;
+
+> Ctrl-D
+
+> su davidbaux (Password)
+
+>brew install ProFTPD
+
+=> make INSTALL_USER=`whoami` INSTALL_GROUP=admin install
+==> Caveats
+The config file is in:
+   /usr/local/etc/proftpd.conf
+
+proftpd may need to be run as root, depending on configuration
+
+
+To have launchd start proftpd at login:
+    ln -sfv /usr/local/opt/proftpd/*.plist ~/Library/LaunchAgents
+Then to load proftpd now:
+    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.proftpd.plist
 
 **Instance Galaxy Interne + Cluster Calcul Externe** 
 
 https://github.com/galaxyproject/pulsar
+
+
+
