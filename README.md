@@ -218,6 +218,10 @@ p2-1bb.iurc.montp.inserm.fr proftpd[79050]: Fatal: unknown configuration directi
 
 '/usr/local/etc/proftpd.conf'
 
+
+Ajouter le load comme suggéré ici https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
+n'a pas aidé. Good luck david.
+
 **Instance Galaxy Interne + Cluster Calcul Externe** 
 
 https://github.com/galaxyproject/pulsar
