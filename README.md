@@ -202,15 +202,21 @@ https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
 >               launch_msg(): Socket is not connected
  
  Test Debugging : 
-> /usr/local/Cellar/proftpd/1.3.4d/sbin/proftpd --config  /usr/local/etc/proftpd.conf
+> /usr/local/Cellar/proftpd/1.3.4d/sbin/proftpd --config  /usr/local/etc/proftpd.conf  -n -d 10
 
-p2-1bb.iurc.montp.inserm.fr proftpd[79006] p2-1bb.iurc.montp.inserm.fr: ROOT PRIVS: unable to seteuid(): Operation not permitted
-p2-1bb.iurc.montp.inserm.fr proftpd[79006] p2-1bb.iurc.montp.inserm.fr: ROOT PRIVS: unable to setegid(): Operation not permitted
-p2-1bb.iurc.montp.inserm.fr proftpd[79006] p2-1bb.iurc.montp.inserm.fr: RELINQUISH PRIVS: unable to seteuid(PR_ROOT_UID): Operation not permitted
-p2-1bb.iurc.montp.inserm.fr proftpd[79006] p2-1bb.iurc.montp.inserm.fr: RELINQUISH PRIVS: unable to setegid(session.gid): Operation not permitted
-p2-1bb.iurc.montp.inserm.fr proftpd[79006] p2-1bb.iurc.montp.inserm.fr: RELINQUISH PRIVS: unable to seteuid(session.uid): Operation not permitted
-p2-1bb.iurc.montp.inserm.fr proftpd[79006] p2-1bb.iurc.montp.inserm.fr: unable to set uid to 0, current uid: 501
+p2-1bb.iurc.montp.inserm.fr proftpd[79050]: using TCP receive buffer size of 262140 bytes
 
+p2-1bb.iurc.montp.inserm.fr proftpd[79050]: using TCP send buffer size of 131070 bytes
+
+p2-1bb.iurc.montp.inserm.fr proftpd[79050]: disabling runtime support for IPv6 connections
+
+p2-1bb.iurc.montp.inserm.fr proftpd[79050]: retrieved UID 4294967294 for user 'nobody'
+
+p2-1bb.iurc.montp.inserm.fr proftpd[79050]: retrieved GID 4294967294 for group 'nobody'
+
+p2-1bb.iurc.montp.inserm.fr proftpd[79050]: Fatal: unknown configuration directive 'SQLEngine' on line 66 of
+
+'/usr/local/etc/proftpd.conf'
 
 **Instance Galaxy Interne + Cluster Calcul Externe** 
 
