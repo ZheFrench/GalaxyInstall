@@ -204,19 +204,6 @@ https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
  Test Debugging : 
 > /usr/local/Cellar/proftpd/1.3.4d/sbin/proftpd --config  /usr/local/etc/proftpd.conf  -n -d 10
 
-p2-1bb.iurc.montp.inserm.fr proftpd[79050]: using TCP receive buffer size of 262140 bytes
-
-p2-1bb.iurc.montp.inserm.fr proftpd[79050]: using TCP send buffer size of 131070 bytes
-
-p2-1bb.iurc.montp.inserm.fr proftpd[79050]: disabling runtime support for IPv6 connections
-
-p2-1bb.iurc.montp.inserm.fr proftpd[79050]: retrieved UID 4294967294 for user 'nobody'
-
-p2-1bb.iurc.montp.inserm.fr proftpd[79050]: retrieved GID 4294967294 for group 'nobody'
-
-p2-1bb.iurc.montp.inserm.fr proftpd[79050]: Fatal: unknown configuration directive 'SQLEngine' on line 66 of
-
-'/usr/local/etc/proftpd.conf'
 
 OK DONC ON PART SUR UNE AUTRE CHOSE. INSTALLATION MANUELLE EN INCLUANT LA COMPILATION DE CERTAINS DES MODULES
 
@@ -230,13 +217,14 @@ OK DONC ON PART SUR UNE AUTRE CHOSE. INSTALLATION MANUELLE EN INCLUANT LA COMPIL
 
 > ./configure --prefix=/usr/local/proftpd-1.3.4/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/Cellar/openssl/1.0.2c/include --with-libraries=/usr/lib/postgresql:/usr/local/Cellar/openssl/1.0.2c/lib (cf lien au début)
 
-./configure --prefix=/usr/local/proftpd-1.3.4/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql --with-libraries=/usr/lib/postgresql (cf lien au début)
-
 > sudo make 
 
 > sudo make install
 
 > /usr/local/proftpd-1.3.4/my_install/sbin/proftpd --config  /usr/local/proftpd-1.3.4/my_install/etc/proftpd.conf -n -d 10
+
+ERREUR : 
+
 Abort trap: 6 
 
 http://www.proftpd.org/docs/howto/Compiling.html
