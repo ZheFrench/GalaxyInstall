@@ -218,6 +218,25 @@ p2-1bb.iurc.montp.inserm.fr proftpd[79050]: Fatal: unknown configuration directi
 
 '/usr/local/etc/proftpd.conf'
 
+OK DONC ON PART SUR UNE AUTRE CHOSE. INSTALLATION MANUELLE EN INCLUANT LA COMPILATION DE CERTAINS DES MODULES
+
+> cd /usr/local/
+
+> wget ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.4.tar.gz ( install wget par brew si absent)
+
+> tar xfvz proftpd-1.3.4.tar.gz
+
+> cd proftpd-1.3.4/
+
+> ./config --prefix=/usr/local/proftpd-1.3.4/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/Cellar/openssl/1.0.2c/include --with-libraries=/usr/lib/postgresql:/usr/local/Cellar/openssl/1.0.2c/lib (cf lien au début)
+
+> make 
+
+> make install
+
+/usr/local/etc/proftpd.conf
+
+/usr/local/proftpd-1.3.4/my_install/sbin/proftpd --config  /usr/local/?????   -n -d 10
 
 Ajouter le load comme suggéré ici https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
 n'a pas aidé. Good luck david.
@@ -226,5 +245,7 @@ n'a pas aidé. Good luck david.
 
 https://github.com/galaxyproject/pulsar
 
+**Purge Library/Dataset/History -> Cron Job** 
 
-
+https://wiki.galaxyproject.org/Admin/Config/Performance/ProductionServer
+https://wiki.galaxyproject.org/Admin/Config/Performance/Purge%20Histories%20and%20Datasets
