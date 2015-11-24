@@ -228,18 +228,19 @@ OK DONC ON PART SUR UNE AUTRE CHOSE. INSTALLATION MANUELLE EN INCLUANT LA COMPIL
 
 > cd proftpd-1.3.4/
 
-> ./config --prefix=/usr/local/proftpd-1.3.4/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/Cellar/openssl/1.0.2c/include --with-libraries=/usr/lib/postgresql:/usr/local/Cellar/openssl/1.0.2c/lib (cf lien au début)
+> ./configure --prefix=/usr/local/proftpd-1.3.4/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/Cellar/openssl/1.0.2c/include --with-libraries=/usr/lib/postgresql:/usr/local/Cellar/openssl/1.0.2c/lib (cf lien au début)
 
-> make 
+./configure --prefix=/usr/local/proftpd-1.3.4/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql --with-libraries=/usr/lib/postgresql (cf lien au début)
 
-> make install
+> sudo make 
 
-/usr/local/etc/proftpd.conf
+> sudo make install
 
-/usr/local/proftpd-1.3.4/my_install/sbin/proftpd --config  /usr/local/?????   -n -d 10
+> /usr/local/proftpd-1.3.4/my_install/sbin/proftpd --config  /usr/local/proftpd-1.3.4/my_install/etc/proftpd.conf -n -d 10
+Abort trap: 6 
 
-Ajouter le load comme suggéré ici https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
-n'a pas aidé. Good luck david.
+http://www.proftpd.org/docs/howto/Compiling.html
+
 
 **Instance Galaxy Interne + Cluster Calcul Externe** 
 
