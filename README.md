@@ -148,12 +148,15 @@ http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 **Authentification des utilisateurs** 
 
  https://wiki.galaxyproject.org/Admin/Config/ApacheExternalUserAuth
+ 
  https://wiki.galaxyproject.org/Admin/Config/ExternalUserAuth
  
 **Configuration FTP** 
 
 https://wiki.galaxyproject.org/Admin/Config/UploadviaFTP
+
 http://galacticengineer.blogspot.co.uk/2015/02/ftp-upload-to-galaxy-using-proftpd-and.html
+
 https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
 
 > su davidbaux (Password)
