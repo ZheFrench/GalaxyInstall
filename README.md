@@ -191,9 +191,18 @@ https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
 sudo nano /usr/local/proftpd-1.3.5a/my_install/etc/proftpd_welcome.txt
 sudo mkdir /usr/local/proftpd-1.3.5a/my_install/var/log
 
-> /usr/local/proftpd-1.3.5a/my_install/sbin/proftpd --config  /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf -n -d 10
-sudo /usr/local/proftpd-1.3.5a/my_install/sbin/proftpd --config /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf -n -d 10
+> sudo /usr/local/proftpd-1.3.5a/my_install/sbin/proftpd --config /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf -n -d 10
 
+/usr/bin/postgres_real -D /var/pgsql -c listen_addresses=localhost -c log_directory=/Library/Logs/PostgreSQL -c log_filename=PostgreSQL.log -c log_lock_waits=on -c log_statement=ddl -c log_line_prefix=%t  -c logging_collector=on -c unix_socket_directory=/var/pgsql_socket -c unix_socket_group=_postgres -c unix_socket_permissions=0770
+
+sudo su _postgres serveradmin start postgres
+sudo serveradmin stop postgres
+sudo serveradmin fullstatus postgres
+
+psql -U _postgres -h localhost galaxy_dev0112015 MARCHE
+psql -U _postgres -h 194.167.35.167 galaxy_dev0112015 MARCHE PAS
+
+sudo nano /var/pgsql/postgresql.conf
 
 http://www.proftpd.org/docs/howto/Compiling.html
 
