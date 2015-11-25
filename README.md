@@ -143,7 +143,7 @@ http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 
  > sudo apachectl restart
  
- > GALAXY_RUN_ALL=1 sh ./run.sh --daemon
+ > GALAXY_RUN_ALL=1 ./run.sh --daemon
  
 **Authentification des utilisateurs** 
 
@@ -173,59 +173,27 @@ https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
 
 > su davidbaux (Password)
 
->brew install ProFTPD
-
->           => make INSTALL_USER=`whoami` INSTALL_GROUP=admin install
-
->           ==> Caveats
-
->           The config file is in:
-
->              /usr/local/etc/proftpd.conf
-
->           proftpd may need to be run as root, depending on configuration
-
->           To have launchd start proftpd at login:
-
->               ln -sfv /usr/local/opt/proftpd/*.plist ~/Library/LaunchAgents
-
->           Then to load proftpd now:
-
->               launchctl load ~/Library/LaunchAgents/homebrew.mxcl.proftpd.plist
-
- > ln -sfv /usr/local/opt/proftpd/*.plist ~/Library/LaunchAgents
- 
- > launchctl load ~/Library/LaunchAgents/homebrew.mxcl.proftpd.plist
- 
->               bash-3.2$ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.proftpd.plist
->               Bug: launchctl.c:2425 (25957):13: (dbfd = open(g_job_overrides_db_path, O_RDONLY | O_EXLOCK | O_CREAT, S_IRUSR | S_IWUSR)) != -1
->               launch_msg(): Socket is not connected
- 
- Test Debugging : 
-> /usr/local/Cellar/proftpd/1.3.4d/sbin/proftpd --config  /usr/local/etc/proftpd.conf  -n -d 10
-
-
-OK DONC ON PART SUR UNE AUTRE CHOSE. INSTALLATION MANUELLE EN INCLUANT LA COMPILATION DE CERTAINS DES MODULES
+**Telechargement proFTPD et compilation** 
 
 > cd /usr/local/
 
-> wget ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.4.tar.gz ( install wget par brew si absent)
+> wget ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.5a.tar.gz ( install wget par brew si absent)
 
-> tar xfvz proftpd-1.3.4.tar.gz
+> tar xfvz proftpd-1.3.5a.tar.gz
 
-> cd proftpd-1.3.4/
+> cd proftpd-1.3.5a/
 
-> ./configure --prefix=/usr/local/proftpd-1.3.4/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/Cellar/openssl/1.0.2c/include --with-libraries=/usr/lib/postgresql:/usr/local/Cellar/openssl/1.0.2c/lib (cf lien au début)
+> ./configure --prefix=/usr/local/proftpd-1.3.5a/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/Cellar/openssl/1.0.2c/include --with-libraries=/usr/lib/postgresql:/usr/local/Cellar/openssl/1.0.2c/lib 
 
-> sudo make 
-
+> make 
 > sudo make install
 
-> /usr/local/proftpd-1.3.4/my_install/sbin/proftpd --config  /usr/local/proftpd-1.3.4/my_install/etc/proftpd.conf -n -d 10
+sudo nano /usr/local/proftpd-1.3.5a/my_install/etc/proftpd_welcome.txt
+sudo mkdir /usr/local/proftpd-1.3.5a/my_install/var/log
 
-ERREUR : 
+> /usr/local/proftpd-1.3.5a/my_install/sbin/proftpd --config  /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf -n -d 10
+sudo /usr/local/proftpd-1.3.5a/my_install/sbin/proftpd --config /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf -n -d 10
 
-Abort trap: 6 
 
 http://www.proftpd.org/docs/howto/Compiling.html
 
