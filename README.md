@@ -204,6 +204,17 @@ psql -U _postgres -h 194.167.35.167 galaxy_dev0112015 MARCHE PAS
 
 sudo nano /var/pgsql/postgresql.conf
 
+Ajout dans  /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf 
+DelayEngine off ( écriture dans un repertoire qui necessitait de lancer FTP en root)
+
+sudo chown -R 516:20 /usr/local/proftpd-1.3.5a/my_install/var/log/ (initialement root:wheel)
+516(galaxy_dev_user) gid=20(staff)
+
+drwxr-xr-x  2 root             wheel     68 25 nov 16:57 garbage
+drwxr-x--x  8 galaxy_dev_user  staff    272 25 nov 17:27 log
+-rw-r--r--  1 root             wheel  12608 25 nov 17:57 proftpd.delay
+-rw-------  1 root             wheel      6 25 nov 17:57 proftpd.pid
+
 http://www.proftpd.org/docs/howto/Compiling.html
 
 
