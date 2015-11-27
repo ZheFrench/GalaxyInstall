@@ -366,14 +366,30 @@ http://www.proftpd.org/docs/howto/Limit.html
 >        #SQLUserInfo                     custom:/LookupGalaxyUser
 >        #SQLNamedQuery                   LookupGalaxyUser SELECT "email,password,516,20,'/Users/galaxy_dev_user/galaxy/database/FTP/%U','/bin/bash' FROM galaxy_user WHERE email='%U'
 
+**QUOTAS** 
+***
+
+TODO
+https://wiki.galaxyproject.org/Admin/DiskQuotas
+
+**Config Apache Proxy** 
+***
+
+TODO
+https://wiki.galaxyproject.org/Admin/Config/ApacheProxy
+
+**Purge Library/Dataset/History -> Cron Job** 
+***
+
+TODO
+https://wiki.galaxyproject.org/Admin/Config/Performance/ProductionServer
+https://wiki.galaxyproject.org/Admin/Config/Performance/Purge%20Histories%20and%20Datasets
 
 **Instance Galaxy Interne + Cluster Calcul Externe** 
 ***
 
 https://github.com/galaxyproject/pulsar
 
-**Purge Library/Dataset/History -> Cron Job** 
-***
 
-https://wiki.galaxyproject.org/Admin/Config/Performance/ProductionServer
-https://wiki.galaxyproject.org/Admin/Config/Performance/Purge%20Histories%20and%20Datasets
+
+
