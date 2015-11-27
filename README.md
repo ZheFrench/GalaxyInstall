@@ -224,7 +224,9 @@ http://www.proftpd.org/docs/howto/CreateHome.html
 https://www.howtoforge.com/community/threads/proftpd-and-dir-file-mask.26278/
 
 >        # The correct directive is:
->         CreateHome on 755 dirmode 755 
+>         CreateHome on 700 dirmode 700 (j'ai rajouté les uid gid homegid)
+
+LE SECRET C'EST DE FAIRE TOUT POUR QUE LE PROPRIETAIRE DU DOSSIER SOIT L'USER QUI A LANCE GALAXY.
 
 > #Pour les tests , penser à virer le mail
 > sudo rm -R /Users/galaxy_dev_user/galaxy/database/FTP/jpvillemin\@gmail.com/
@@ -244,8 +246,8 @@ http://www.proftpd.org/docs/howto/Limit.html
 >        DelayEngine off
 
 >        # Umask 022 is a good standard umask to prevent new dirs and files
->        # from being group and world writable. 0 - ALL PERMISSIONS 2 READ and Execute
->        Umask                           022
+>        # from being group and world writable. 0 - ALL PERMISSIONS 2 READ and Execute 7 NO PERM
+>        Umask                           077
 
 >        #TimeoutNoTransfer               600
 >        #TimeoutStalled                  600
@@ -259,9 +261,9 @@ http://www.proftpd.org/docs/howto/Limit.html
 >        # (such as xinetd).
 >        MaxInstances                    30
 
->        # Set the user and group under which the server will run. UID/GID 4294967294/4294967294
->        User                            nobody
->        Group                           nobody
+>        # Set the user and group under which the server will run. 
+>        User                            galaxy_dev_user
+>        Group                           staff
 
 >        # Cosmetic changes, all files belongs to this user/group
 >        # FakeGroup semlbe marcher...pas le 1er ... User/Group precedement suffise non ?
@@ -296,7 +298,7 @@ http://www.proftpd.org/docs/howto/Limit.html
 >        DefaultRoot ~
 
 >        # Automatically create home directory if it doesn't exist
->        CreateHome                      on 755 dirmode 755
+>        CreateHome                      on 755 dirmode 700 uid 516 gid 20 homegid 20
 
 >        # Normally, we want files to be overwriteable.
 >        AllowOverwrite          on
@@ -334,10 +336,14 @@ http://www.proftpd.org/docs/howto/Limit.html
 >        # See http://dev.list.galaxyproject.org/ProFTPD-integration-with-Galaxy-td4660295.html
 >        SQLPasswordUserSalt             sql:/GetUserSalt
 
->        # Define a custom query for lookup that returns a passwd-like entry. Replace 512s with the UID and GID of the user running the Galaxy server
+>        # Define a custom query for lookup that returns a passwd-like entry.
+>        # The file created use the uid in the sql request
+>        # But uid is reattributed because it's below SQLMinUserUID set by default to 999
+>        # The user launching galaxyis galaxy_user uid 516 so we se SQLMinUSERUID to 500 , this way it won't be modified
 
+>        SQLMinUserUID 500
 >        SQLUserInfo                     custom:/LookupGalaxyUser
->        SQLNamedQuery                   LookupGalaxyUser SELECT "email, (CASE WHEN substring(password from 1 for 6) = 'PBKDF2' THEN substring(password from 38 for 69) ELSE password END) AS password2,4294967294,4294967294,'/Users/galaxy_dev_user/galaxy/datab$
+>        SQLNamedQuery                   LookupGalaxyUser SELECT "email, (CASE WHEN substring(password from 1 for 6) = 'PBKDF2' THEN substring(password from 38 for 69) ELSE password END) AS password2,516,20,'/Users/galaxy_dev_user/galaxy/datab$
 
 >        # Define custom query to fetch the password salt
 >        SQLNamedQuery                   GetUserSalt SELECT "(CASE WHEN SUBSTRING (password from 1 for 6) = 'PBKDF2' THEN SUBSTRING (password from 21 for 16) END) AS salt FROM galaxy_user WHERE email='%U'"
@@ -354,7 +360,7 @@ http://www.proftpd.org/docs/howto/Limit.html
 
 >        # Define a custom query for lookup that returns a passwd-like entry. Replace 512s with the UID and GID of the user running the Galaxy server
 >        #SQLUserInfo                     custom:/LookupGalaxyUser
->        #SQLNamedQuery                   LookupGalaxyUser SELECT "email,password,4294967294,4294967294,'/Users/galaxy_dev_user/galaxy/database/FTP/%U','/bin/bash' FROM galaxy_user WHERE email='%U'
+>        #SQLNamedQuery                   LookupGalaxyUser SELECT "email,password,516,20,'/Users/galaxy_dev_user/galaxy/database/FTP/%U','/bin/bash' FROM galaxy_user WHERE email='%U'
 
 
 **Instance Galaxy Interne + Cluster Calcul Externe** 
