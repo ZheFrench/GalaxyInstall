@@ -468,9 +468,6 @@ Dans /etc/apache2/vhosts/galaxy.dev.conf :
 >        	</VirtualHost>
 
 
-TODO
-https://wiki.galaxyproject.org/Admin/Config/ApacheProxy
-
 **Purge Library/Dataset/History -> Cron Job** 
 ***
 
