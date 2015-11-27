@@ -215,9 +215,9 @@ Ca deconne, pourquoi ? Ca ma permis de comprendre :
 
 Il fallait changer en fait X.X.X.X en localhost dans proftpd.conf .
 
-Ajout dans  /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf 
+**Ajout dans  /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf**
 
-Deux choses m'ont sauver la vie :
+_Deux choses m'ont sauver la vie :_
 
 1- Dans Filezilla : choisir le mode actif. (Pourquoi ? Don't know)
 2- Dans le /var/pgsql/postgresql.conf, le 'home' crée par galaxy pour le FTP avait pour propriétaire le root.
@@ -229,12 +229,13 @@ https://www.howtoforge.com/community/threads/proftpd-and-dir-file-mask.26278/
 >        # The correct directive is:
 >         CreateHome on 700 dirmode 700 (j'ai rajouté les uid gid homegid)
 
-LE SECRET C'EST DE FAIRE TOUT POUR QUE LE PROPRIETAIRE DU DOSSIER SOIT L'USER QUI A LANCE GALAXY.
+ **LE SECRET C'EST DE FAIRE TOUT POUR QUE LE PROPRIETAIRE DU DOSSIER SOIT L'USER QUI A LANCE GALAXY**
 
-Pour les tests , penser à virer le mail
+Pour les tests , penser à virer le mail :
 >         sudo rm -R /Users/galaxy_dev_user/galaxy/database/FTP/jpvillemin\@gmail.com/
 
-Ca j'ai rien compris, c'était présent dans les configurations fournis par le GALAXY CREW
+Ca j'ai rien compris, c'était présent dans les configurations fournis par le GALAXY CREW.
+
 http://www.proftpd.org/docs/howto/Limit.html
 
 >        # ProFTPD configuration for Galaxy FTP
