@@ -366,6 +366,33 @@ http://www.proftpd.org/docs/howto/Limit.html
 >        #SQLUserInfo                     custom:/LookupGalaxyUser
 >        #SQLNamedQuery                   LookupGalaxyUser SELECT "email,password,516,20,'/Users/galaxy_dev_user/galaxy/database/FTP/%U','/bin/bash' FROM galaxy_user WHERE email='%U'
 
+Creation de lgm.proftpd.profpd.plist ds /usr/local/proftpf-1.3.5a/my_install :
+
+>        sudo ln -sfv lgm.proftpd.proftpd.plist /Library/LaunchDaemons/lgm.proftpd.profpd.plist
+>        sudo launchctl load /Library/LaunchDaemons/lgm.proftpd.profpd.plist
+
+>        <?xml version="1.0" encoding="UTF-8"?>
+>        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd 
+">
+>        <plist version="1.0">
+>        <dict>
+>        	<key>KeepAlive</key>
+>        	<dict>
+>        		<key>SuccessfulExit</key>
+>        		<true/>
+>        	</dict>
+>        	<key>Label</key>
+>        	<string>lgm.proftpd.proftpd</string>
+>        	<key>ProgramArguments</key>
+>        	<array>
+>        		<string>/usr/local/proftpd-1.3.5a/my_install/sbin/proftpd</string>
+>        		<string>-n</string>
+>        	</array>
+>        	<key>RunAtLoad</key>
+>         <true/>
+>         </dict>
+>         </plist>
+
 **QUOTAS** 
 ***
 
