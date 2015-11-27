@@ -16,7 +16,6 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
  
 **Installation de la dernière version de python et virtualenv**
  
- 
 ***
 
  > su 'user_root'
@@ -32,7 +31,7 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
  > virtualenv .venv
 
 **Copie de l'ancienne BDD PostgreSQL de Galaxy** 
-
+***
 > su davidbaux (password)
 
 > sudo launchctl unload /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
