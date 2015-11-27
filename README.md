@@ -5,7 +5,6 @@
 https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 
 **Download**
-
 ***
 
  > git clone https://github.com/galaxyproject/galaxy/
@@ -15,7 +14,7 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
  > git checkout -b master origin/master
  
 **Installation de la dernière version de python et virtualenv**
- 
+
 ***
 
  > su 'user_root'
@@ -55,6 +54,7 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 
 
 **Structuration des "Handlers"** 
+***
 
 **[server:web1]** 
 
@@ -104,6 +104,7 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 > cp ./config/job_conf.xml.sample_basic ./config/job_conf.xml
 
 **Configuration de Apache pour le web balancing** 
+***
 
 http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 
@@ -145,12 +146,14 @@ http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
  > GALAXY_RUN_ALL=1 ./run.sh --daemon
  
 **Authentification des utilisateurs** 
+***
 
  https://wiki.galaxyproject.org/Admin/Config/ApacheExternalUserAuth
  
  https://wiki.galaxyproject.org/Admin/Config/ExternalUserAuth
  
 **Configuration FTP** 
+***
 
 https://wiki.galaxyproject.org/Admin/Config/UploadviaFTP
 
@@ -173,6 +176,7 @@ https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
 > su davidbaux (Password)
 
 **Telechargement proFTPD et compilation** 
+***
 
 Pour compiler manuellement(c'est compliquer sur mac d'utiliser brew car il ne va pas vouloir de charger des modules avec la directive LoadModule) : 
 
@@ -203,7 +207,8 @@ http://www.proftpd.org/docs/howto/Compiling.html
 > sudo serveradmin stop postgres
 > sudo serveradmin fullstatus postgres
 
-Ca deconne, pourquoi ? Ca ma permis de comprendre.
+Ca deconne, pourquoi ? Ca ma permis de comprendre :
+
 > psql -U _postgres -h localhost galaxy_dev0112015 MARCHE
 > psql -U _postgres -h X.X.X.X galaxy_dev0112015 MARCHE PAS
 
@@ -363,10 +368,12 @@ http://www.proftpd.org/docs/howto/Limit.html
 
 
 **Instance Galaxy Interne + Cluster Calcul Externe** 
+***
 
 https://github.com/galaxyproject/pulsar
 
 **Purge Library/Dataset/History -> Cron Job** 
+***
 
 https://wiki.galaxyproject.org/Admin/Config/Performance/ProductionServer
 https://wiki.galaxyproject.org/Admin/Config/Performance/Purge%20Histories%20and%20Datasets
