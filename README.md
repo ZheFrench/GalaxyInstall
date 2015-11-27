@@ -1,4 +1,4 @@
-# GalaxyInstall - Prod
+# Galaxy Install - Prod - MAC OSX 10.7
 
 **1ère Mise à jour Juin 2015 du serveur 137**
 
@@ -187,32 +187,32 @@ http://www.proftpd.org/docs/howto/Compiling.html
 
 > cd proftpd-1.3.5a/
 
-> MAC OSX 10.6
 > ./configure --prefix=/usr/local/proftpd-1.3.5a/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/Cellar/openssl/1.0.2c/include --with-libraries=/usr/lib/postgresql:/usr/local/Cellar/openssl/1.0.2c/lib 
 
 > make 
+
 > sudo make install
 
-sudo nano /usr/local/proftpd-1.3.5a/my_install/etc/proftpd_welcome.txt
-sudo mkdir /usr/local/proftpd-1.3.5a/my_install/var/log
+> sudo nano /usr/local/proftpd-1.3.5a/my_install/etc/proftpd_welcome.txt
 
-# Permer de tester
+> sudo mkdir /usr/local/proftpd-1.3.5a/my_install/var/log
+
+>  Permer de tester
 > sudo /usr/local/proftpd-1.3.5a/my_install/sbin/proftpd --config /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf -n -d 10
 
-sudo su _postgres serveradmin start postgres
-sudo serveradmin stop postgres
-sudo serveradmin fullstatus postgres
+> sudo su _postgres serveradmin start postgres
+> sudo serveradmin stop postgres
+> sudo serveradmin fullstatus postgres
 
-# Ca deconne, pk ? Ca ma permis de comprendre.
-psql -U _postgres -h localhost galaxy_dev0112015 MARCHE
-psql -U _postgres -h 194.167.35.167 galaxy_dev0112015 MARCHE PAS
+Ca deconne, pourquoi ? Ca ma permis de comprendre.
+> psql -U _postgres -h localhost galaxy_dev0112015 MARCHE
+> psql -U _postgres -h X.X.X.X galaxy_dev0112015 MARCHE PAS
 
-sudo nano /var/pgsql/postgresql.conf ( NON RIEN A CHANGER ICI, NON RIEN DE RIEN, JE NE REGRETTE RIEN)
+> sudo nano /var/pgsql/postgresql.conf ( NON RIEN A CHANGER ICI, NON RIEN DE RIEN, JE NE REGRETTE RIEN)
 
-Il fallait changer en fait 194.167.35.167 en localhost dans proftpd.conf .
+Il fallait changer en fait X.X.X.X en localhost dans proftpd.conf .
 
 Ajout dans  /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf 
-DelayEngine off ( écriture dans un repertoire qui necessitait de lancer FTP en root)
 
 Deux choses m'ont sauver la vie :
 
@@ -228,7 +228,7 @@ https://www.howtoforge.com/community/threads/proftpd-and-dir-file-mask.26278/
 
 LE SECRET C'EST DE FAIRE TOUT POUR QUE LE PROPRIETAIRE DU DOSSIER SOIT L'USER QUI A LANCE GALAXY.
 
-> #Pour les tests , penser à virer le mail
+Pour les tests , penser à virer le mail
 > sudo rm -R /Users/galaxy_dev_user/galaxy/database/FTP/jpvillemin\@gmail.com/
 
 Ca j'ai rien compris, c'était présent dans les configurations fournis par le GALAXY CREW
