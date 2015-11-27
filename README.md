@@ -7,11 +7,11 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 **Download**
 ***
 
- > git clone https://github.com/galaxyproject/galaxy/
+ >         git clone https://github.com/galaxyproject/galaxy/
  
- > cd galaxy
+ >         cd galaxy
  
- > git checkout -b master origin/master
+ >         git checkout -b master origin/master
  
 **Installation de la dernière version de python et virtualenv**
 
