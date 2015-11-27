@@ -402,6 +402,71 @@ https://wiki.galaxyproject.org/Admin/DiskQuotas
 **Config Apache Proxy** 
 ***
 
+
+Dans /galaxy.ini :
+
+>        	# -- Advanced proxy features
+>        	apache_xsendfile = True
+
+**[filter:proxy-prefix]**
+
+>        	use = egg:PasteDeploy#prefix
+>        	prefix = /galaxy2015
+
+**[app:main]**
+
+>        	filter-with = proxy-prefix
+>        	cookie_path = /galaxy2015
+
+
+>        	<VirtualHost *:80>
+
+>        	        RewriteEngine on
+
+>        	        RewriteRule ^/galaxy2015$ /galaxy2015/ [R]
+>        	        RewriteRule ^/galaxy2015/static/style/(.*) /Users/galaxy_dev_user/galaxy/static/june_2007_style/blue/$1 [L]
+>        	        RewriteRule ^/galaxy2015/static/scripts/(.*) /Users/galaxy_dev_user/galaxy/static/scripts/packed/$1 [L]
+>        	        RewriteRule ^/galaxy2015/static/(.*) /Users/galaxy_dev_user/galaxy/static/$1 [L]
+
+>        	        RewriteRule ^/galaxy2015/qtrim/(.*) /Users/galaxy_dev_user/galaxy/tools/next_gen_conversion/qtrim/$1 [L]
+>        	        RewriteRule ^/galaxy2015/star/(.*) $1 [L]
+>        	        RewriteRule ^/galaxy2015/favicon.ico /Users/galaxy_dev_user/galaxy/static/favicon.ico [L]
+>        	        RewriteRule ^/galaxy2015/robots.txt /Users/galaxy_dev_user/galaxy/static/robots.txt [L]
+
+>        	        <Proxy balancer://galaxy2015>
+>        	            BalancerMember http://X.X.X.X:8081
+>        	            BalancerMember http://X.X.X.X:8082
+>        	        </Proxy>
+
+>        	        RewriteRule ^(.*) balancer://galaxy2015$1 [P]
+
+ >        	       <Location "/galaxy2015">
+ >        	               # Compress all uncompressed content.
+ >        	               SetOutputFilter DEFLATE
+ >        	               SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip dont-vary
+ >        	               SetEnvIfNoCase Request_URI \.(?:t?gz|zip|bz2)$ no-gzip dont-vary
+ >        	               SetEnvIfNoCase Request_URI /history/export_archive no-gzip dont-vary
+
+>        	                XSendFile on
+>        	                XSendFileAllowAbove on
+>        	        </Location>
+
+>        	        <Location "/galaxy2015/static">
+>        	                # Allow browsers to cache everything from /static for 6 hours
+>        	                ExpiresActive On
+>        	                ExpiresDefault "access plus 72 hours"
+
+ >        	               XSendFile on
+ >        	               XSendFileAllowAbove on
+ >        	       </Location>
+
+ >        	       <Directory "/Users/galaxy_dev_user/galaxy/database/files/">
+ >        	               AllowOverride Fileinfo
+ >        	       </Directory>
+
+>        	</VirtualHost>
+
+
 TODO
 https://wiki.galaxyproject.org/Admin/Config/ApacheProxy
 
