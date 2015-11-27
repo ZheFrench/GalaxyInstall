@@ -17,40 +17,39 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 
 ***
 
- > su 'user_root'
+ >         su 'user_root'
  
- > brew install python
+ >         brew install python
  
- > /usr/local/Cellar/python/2.7.10  # Path install nouveau python
+ >         /usr/local/Cellar/python/2.7.10  # Path install nouveau python
  
- > pip install virtualenv
+ >         pip install virtualenv
  
- > cd galaxy
+ >         cd galaxy
  
- > virtualenv .venv
+ >         virtualenv .venv
 
 **Copie de l'ancienne BDD PostgreSQL de Galaxy** 
 ***
-> su davidbaux (password)
+>         su davidbaux (password)
 
-> sudo launchctl unload /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
+>         sudo launchctl unload /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
 
-> psql -U _postgres galaxy_dev (password)
+>         psql -U _postgres galaxy_dev (password)
 
-> CREATE DATABASE galaxy_dev0112015 template galaxy_dev;
+>         CREATE DATABASE galaxy_dev0112015 template galaxy_dev;
 
-> GRANT ALL PRIVILEGES ON DATABASE galaxy_dev0112015 TO galaxy_dev_user;
+>         GRANT ALL PRIVILEGES ON DATABASE galaxy_dev0112015 TO galaxy_dev_user;
 
-> Ctrl+D
+>         Ctrl+D
 
-> su davidbaux (password)
+>         su davidbaux (password)
 
-> sudo launchctl load /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
+>         sudo launchctl load /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
 
-> mv galaxi.ini.sample galaxi.ini
+>         mv galaxi.ini.sample galaxi.ini
 
-> database_connection=postgresql://galaxy_dev_user:galaxy_dev0112015@localhost/galaxy_dev0112015 (fichier galaxy.ini)
-
+>         database_connection=postgresql://galaxy_dev_user:galaxy_dev0112015@localhost/galaxy_dev0112015 (fichier galaxy.ini)
 
 
 **Structuration des "Handlers"** 
@@ -101,18 +100,18 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 >         threadpool_kill_thread_limit = 10800
 
 
-> cp ./config/job_conf.xml.sample_basic ./config/job_conf.xml
+>         cp ./config/job_conf.xml.sample_basic ./config/job_conf.xml
 
 **Configuration de Apache pour le web balancing** 
 ***
 
 http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 
-> Include /private/etc/apache2/vhosts/*.conf (Ajouter dans fichier /etc/apache2/httpd.conf)
+>         Include /private/etc/apache2/vhosts/*.conf (Ajouter dans fichier /etc/apache2/httpd.conf)
 
-> mkdir /etc/apache2/vhosts/
+>         mkdir /etc/apache2/vhosts/
 
-> touch  galaxy.dev.conf
+>         touch  galaxy.dev.conf
 
 >         <VirtualHost *:80>
 
@@ -141,9 +140,9 @@ http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 >        </VirtualHost>
 
 
- > sudo apachectl restart
+ >         sudo apachectl restart
  
- > GALAXY_RUN_ALL=1 ./run.sh --daemon
+ >         GALAXY_RUN_ALL=1 ./run.sh --daemon
  
 **Authentification des utilisateurs** 
 ***
@@ -161,19 +160,19 @@ http://galacticengineer.blogspot.co.uk/2015/02/ftp-upload-to-galaxy-using-proftp
 
 https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
 
-> su davidbaux (Password)
+>         su davidbaux (Password)
 
-> createuser -SDR galaxyftp
+>         createuser -SDR galaxyftp
 
-> psql galaxy_dev0112015
+>         psql galaxy_dev0112015
 
-> ALTER ROLE galaxyftp PASSWORD 'galaxy_dev';
+>         ALTER ROLE galaxyftp PASSWORD 'galaxy_dev';
 
-> GRANT SELECT ON galaxy_user TO galaxyftp;
+>         GRANT SELECT ON galaxy_user TO galaxyftp;
 
-> Ctrl-D
+>         Ctrl-D
 
-> su davidbaux (Password)
+>         su davidbaux (Password)
 
 **Telechargement proFTPD et compilation** 
 ***
@@ -182,37 +181,37 @@ Pour compiler manuellement(c'est compliquer sur mac d'utiliser brew car il ne va
 
 http://www.proftpd.org/docs/howto/Compiling.html
 
-> cd /usr/local/
+>         cd /usr/local/
 
-> wget ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.5a.tar.gz ( install wget par brew si absent)
+>         wget ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.5a.tar.gz ( install wget par brew si absent)
 
-> tar xfvz proftpd-1.3.5a.tar.gz
+>         tar xfvz proftpd-1.3.5a.tar.gz
 
-> cd proftpd-1.3.5a/
+>         cd proftpd-1.3.5a/
 
-> ./configure --prefix=/usr/local/proftpd-1.3.5a/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/Cellar/openssl/1.0.2c/include --with-libraries=/usr/lib/postgresql:/usr/local/Cellar/openssl/1.0.2c/lib 
+>         ./configure --prefix=/usr/local/proftpd-1.3.5a/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/Cellar/openssl/1.0.2c/include --with-libraries=/usr/lib/postgresql:/usr/local/Cellar/openssl/1.0.2c/lib 
 
-> make 
+>         make 
 
-> sudo make install
+>         sudo make install
 
-> sudo nano /usr/local/proftpd-1.3.5a/my_install/etc/proftpd_welcome.txt
+>         sudo nano /usr/local/proftpd-1.3.5a/my_install/etc/proftpd_welcome.txt
 
-> sudo mkdir /usr/local/proftpd-1.3.5a/my_install/var/log
+>         sudo mkdir /usr/local/proftpd-1.3.5a/my_install/var/log
 
->  Permer de tester
-> sudo /usr/local/proftpd-1.3.5a/my_install/sbin/proftpd --config /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf -n -d 10
+>          Permer de tester
+>         sudo /usr/local/proftpd-1.3.5a/my_install/sbin/proftpd --config /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf -n -d 10
 
-> sudo su _postgres serveradmin start postgres
-> sudo serveradmin stop postgres
-> sudo serveradmin fullstatus postgres
+>         sudo su _postgres serveradmin start postgres
+>         sudo serveradmin stop postgres
+>         sudo serveradmin fullstatus postgres
 
 Ca deconne, pourquoi ? Ca ma permis de comprendre :
 
-> psql -U _postgres -h localhost galaxy_dev0112015 MARCHE
-> psql -U _postgres -h X.X.X.X galaxy_dev0112015 MARCHE PAS
+>         psql -U _postgres -h localhost galaxy_dev0112015 MARCHE
+>         psql -U _postgres -h X.X.X.X galaxy_dev0112015 MARCHE PAS
 
-> sudo nano /var/pgsql/postgresql.conf ( NON RIEN A CHANGER ICI, NON RIEN DE RIEN, JE NE REGRETTE RIEN)
+>         sudo nano /var/pgsql/postgresql.conf ( NON RIEN A CHANGER ICI, NON RIEN DE RIEN, JE NE REGRETTE RIEN)
 
 Il fallait changer en fait X.X.X.X en localhost dans proftpd.conf .
 
@@ -233,7 +232,7 @@ https://www.howtoforge.com/community/threads/proftpd-and-dir-file-mask.26278/
 LE SECRET C'EST DE FAIRE TOUT POUR QUE LE PROPRIETAIRE DU DOSSIER SOIT L'USER QUI A LANCE GALAXY.
 
 Pour les tests , penser à virer le mail
-> sudo rm -R /Users/galaxy_dev_user/galaxy/database/FTP/jpvillemin\@gmail.com/
+>         sudo rm -R /Users/galaxy_dev_user/galaxy/database/FTP/jpvillemin\@gmail.com/
 
 Ca j'ai rien compris, c'était présent dans les configurations fournis par le GALAXY CREW
 http://www.proftpd.org/docs/howto/Limit.html
