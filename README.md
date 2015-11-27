@@ -418,6 +418,7 @@ Dans /galaxy.ini :
 >        	filter-with = proxy-prefix
 >        	cookie_path = /galaxy2015
 
+Dans /etc/apache2/vhosts/galaxy.dev.conf :
 
 >        	<VirtualHost *:80>
 
