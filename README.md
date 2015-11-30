@@ -421,7 +421,7 @@ Dans /galaxy.ini :
 Dans /etc/apache2/vhosts/galaxy.dev.conf :
 
 >        	<VirtualHost *:80>
-
+>        	        DocumentRoot "/Library/WebServer/Documents"
 >        	        RewriteEngine on
 
 >        	        RewriteRule ^/galaxy2015$ /galaxy2015/ [R]
@@ -439,7 +439,7 @@ Dans /etc/apache2/vhosts/galaxy.dev.conf :
 >        	            BalancerMember http://X.X.X.X:8082
 >        	        </Proxy>
 
->        	        RewriteRule ^(.*) balancer://galaxy2015$1 [P]
+>        	        RewriteRule ^/galaxy2015(.*) balancer://galaxy2015$1 [P]
 
  >        	       <Location "/galaxy2015">
  >        	               # Compress all uncompressed content.
