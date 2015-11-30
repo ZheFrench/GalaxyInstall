@@ -467,6 +467,9 @@ Dans /etc/apache2/vhosts/galaxy.dev.conf :
 
 >        	</VirtualHost>
 
+**Purge Rotate the logs** 
+***
+TODO
 
 **Purge Library/Dataset/History -> Cron Job** 
 ***
