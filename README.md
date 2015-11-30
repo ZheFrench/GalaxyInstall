@@ -33,6 +33,10 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 
 **Copie de l'ancienne BDD PostgreSQL de Galaxy** 
 ***
+
+La première partie n'est pas à executer. 
+En fait , on veut avoir deux serveur en production sur lesquels on copie la base de données en production actuelle. Celle qui contient les utilisateurs (biologistes) . La dev ne contient que les utilisateurs informaticiens.
+
 >         su davidbaux (password)
 
 >         sudo launchctl unload /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
@@ -49,9 +53,26 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 
 >         sudo launchctl load /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
 
+Sur les autres serveurs : 
+>        psql -U _postgres template1
+>        CREATE DATABASE galaxy_112015;
+>        CREATE USER galaxy_dev_user WITH PASSWORD 'XXXXX';
+>        GRANT ALL PRIVILEGES ON DATABASE galaxy_112015 TO galaxy_dev_user;
+
+>         sudo psql -U _postgres galaxy_112015 < galaxy_prod.sql
+NOTE ERROR lOG : ( Je ne sais pas si ça va impacter la suite)
+REVOKE
+ERROR:  role "postgres" does not exist
+ERROR:  role "postgres" does not exist
+
+
+
 >         mv galaxi.ini.sample galaxi.ini
 
 >         database_connection=postgresql://galaxy_dev_user:galaxy_dev0112015@localhost/galaxy_dev0112015 (fichier galaxy.ini)
+
+Depuis le prod (pour récupérer tout les users) : 
+pg_dump --host=localhost --username=postgres galaxy_prod > galaxy_prod.sql
 
 
 **Structuration des "Handlers"** 
