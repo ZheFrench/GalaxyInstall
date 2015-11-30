@@ -467,7 +467,22 @@ Dans /etc/apache2/vhosts/galaxy.dev.conf :
 
 >        	</VirtualHost>
 
-**Purge Rotate the logs** 
+**Quotas & Config ** 
+***
+>        	[app:main]
+>        	enable_quotas = True
+>        	allow_user_dataset_purge = True
+
+Ensuite, via l'interface connecté en user root, Preferences/
+
+
+>        	require_login = True
+>        	allow_user_creation = False
+>        	allow_user_impersonation = True
+>        	cleanup_job = always
+
+
+**Rotate the logs** 
 ***
 TODO
 
