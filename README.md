@@ -13,6 +13,8 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
  
  >         git checkout -b master origin/master
  
+ Note : Ouvert port FTP 21 / 8081 /8082 via Admin Serveur Interface
+ 
 **Installation de la dernière version de python et virtualenv**
 
 ***
