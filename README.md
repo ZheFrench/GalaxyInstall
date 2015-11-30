@@ -480,7 +480,7 @@ Ensuite, via l'interface connecté en user root, Preferences/
 >        	allow_user_creation = False
 >        	allow_user_impersonation = True
 >        	cleanup_job = always
-
+>        	allow_user_deletion = True
 
 **Rotate the logs** 
 ***
