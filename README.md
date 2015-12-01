@@ -231,12 +231,18 @@ http://www.proftpd.org/docs/howto/Compiling.html
 >         sudo serveradmin stop postgres
 >         sudo serveradmin fullstatus postgres
 
+
 Ca deconne, pourquoi ? Ca ma permis de comprendre :
 
 >         psql -U _postgres -h localhost galaxy_dev0112015 MARCHE
 >         psql -U _postgres -h X.X.X.X galaxy_dev0112015 MARCHE PAS
 
 >         sudo nano /var/pgsql/postgresql.conf ( NON RIEN A CHANGER ICI, NON RIEN DE RIEN, JE NE REGRETTE RIEN)
+
+On utilise pas ce postgresql.conf...je crois mais plutot ce qui va suivre...tadaaah
+
+>         /System/Library/LaunchDaemons/org.postgresql.postgres.plist
+
 
 Il fallait changer en fait X.X.X.X en localhost dans proftpd.conf .
 
