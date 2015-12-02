@@ -34,47 +34,13 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 **Copie de l'ancienne BDD PostgreSQL de Galaxy** 
 ***
 
-La première partie n'est pas à executer. 
-En fait , on veut avoir deux serveur en production sur lesquels on copie la base de données en production actuelle. Celle qui contient les utilisateurs (biologistes) . La dev ne contient que les utilisateurs informaticiens.
-
->         su davidbaux (password)
-
->         sudo launchctl unload /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
-
->         psql -U _postgres galaxy_dev (password)
-
->         CREATE DATABASE galaxy_dev0112015 template galaxy_dev;
-
->         GRANT ALL PRIVILEGES ON DATABASE galaxy_dev0112015 TO galaxy_dev_user;
-
->         Ctrl+D
-
->         su davidbaux (password)
-
->         sudo launchctl load /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
-
-Ce qu'on doit faire , depuis le prod (pour récupérer tout les users) : 
->        pg_dump --host=localhost --username=postgres galaxy_prod > galaxy_prod.sql
-
-Sur les autres serveurs : 
->        psql -U _postgres template1
->        CREATE DATABASE galaxy_112015;
->        CREATE USER galaxy_dev_user WITH PASSWORD 'XXXXX';
->        GRANT ALL PRIVILEGES ON DATABASE galaxy_112015 TO galaxy_dev_user;
-
->         sudo psql -U _postgres galaxy_112015 < galaxy_prod.sql
-NOTE ERROR lOG : ( Je ne sais pas si ça va impacter la suite)
-REVOKE
-ERROR:  role "postgres" does not exist
-ERROR:  role "postgres" does not exist
-
-Sur le 136 , problème de connexion acces denied.... obliger de faire un sudo même en adminuser.
+Sur le 136 , problème de connexion acces denied.... obliger de faire un sudo même en adminuser alors que sur le 137 ce n'était pas nécéssaire. Avant toute chose dans postgres.
 
 >         CREATE USER admin;
 >         ALTER ROLE admin CREATEDB CREATEROLE SUPERUSER;
 >         sudo dseditgroup -o edit -a $username_to_add -t user _postgres (jpense que juste ça suffit)
 
-Pour info postgres.conf sont pas utilisés...Tout est dans un plist compiler au lancement quand on appelle serveradmin.
+Pour info postgres.conf sont pas utilisés...Tout est dans un plist compiler au lancement quand on appelle serveradmin. J'ai pompé la conf du 137 sur le 136 qui était légèrement différente.
 
 >         sudo nano /System/Library/LaunchDaemons/org.postgresql.postgres.plist
 
@@ -124,12 +90,75 @@ Pour info postgres.conf sont pas utilisés...Tout est dans un plist compiler au 
 >         </plist>
 
 
+La première partie qui suit n'est pas à executer. 
+En fait , on veut avoir deux serveur en production sur lesquels on copie la base de données en production actuelle. Celle qui contient les utilisateurs (biologistes) . La dev ne contient que les utilisateurs informaticiens. Au départ j'avais fait le doc en bossant sur le 137. Donc cette partie on laisse tomber même si on réutilisera plus tard des commandes.
+
+>         su davidbaux (password)
+
+>         sudo launchctl unload /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
+
+>         psql -U _postgres galaxy_dev (password)
+
+>         CREATE DATABASE galaxy_dev0112015 template galaxy_dev;
+
+>         GRANT ALL PRIVILEGES ON DATABASE galaxy_dev0112015 TO galaxy_dev_user;
+
+>         Ctrl+D
+
+>         su davidbaux (password)
+
+>         sudo launchctl load /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
+
+Ce qu'on doit faire , depuis le prod (pour récupérer tout les users) : 
+>        pg_dump --host=localhost --username=postgres galaxy_prod > galaxy_prod.sql
+
+Sur les autres serveurs : 
+>        psql -U _postgres template1
+>        CREATE DATABASE galaxy_112015;
+>        CREATE USER galaxy_dev_user WITH PASSWORD 'XXXXX';
+>        GRANT ALL PRIVILEGES ON DATABASE galaxy_112015 TO galaxy_dev_user;
+
+>         sudo psql -U _postgres galaxy_112015 < galaxy_prod.sql
+
+Important :
+>         NOTE ERROR lOG : ( Je ne sais pas si ça va impacter la suite)
+>         REVOKE
+>         ERROR:  role "postgres" does not exist
+>         ERROR:  role "postgres" does not exist
+
+Oui en fait c'est important. Sur le 136/137 l'admin postgres s'appelle _postgres. Sur le 234 il s'appelle postgres.
+Donc quand tu fais l'export , avant de recharger la base, il faut changer dans le schéma des tables postgres en _postgres comme ce qui suit :
+
+>         --
+>         -- Name: public; Type: ACL; Schema: -; Owner: **_postgres**
+>         --
+
+>         REVOKE ALL ON SCHEMA public FROM PUBLIC;
+>         REVOKE ALL ON SCHEMA public FROM **_postgres**;
+>         GRANT ALL ON SCHEMA public TO **_postgres**;
+>         GRANT ALL ON SCHEMA public TO PUBLIC;
+
+Sinon tu auras une belle erreur au moment du ./run.sh...aussi j'avais pas fait gaffe mais il faut aussi changer le owner dans le fichier .sql . (galaxy_prod_user 234 -> galaxy_dev_user 136)
+
 Ensuite :
 
 >         mv galaxi.ini.sample galaxi.ini
 >         database_connection=postgresql://galaxy_dev_user:galaxy_dev112015@localhost/galaxy_dev112015 (fichier galaxy.ini)
+>         ./run.sh
+
+Et on repart pour une serie de problèmes : ( en théorie non car tu as fait ce que je t'ai dis avant )
+
+>        File "/Users/galaxy_dev_user/galaxy/eggs/SQLAlchemy-1.0.8-py2.7-macosx-10.6-intel-ucs2.egg/sqlalchemy/engine/default.py", line 450, in do_execute
+>            cursor.execute(statement, parameters)
+>        DatabaseNotControlledError: (psycopg2.ProgrammingError) permission denied for relation migrate_version
+>         [SQL: 'SELECT migrate_version.repository_id, migrate_version.repository_path, migrate_version.version \nFROM migrate_version >        \nWHERE migrate_version.repository_id = %(repository_id_1)s'] [parameters: {'repository_id_1': 'Galaxy'}]
 
 
+Tu crois que c'est fini et noooooooon....
+
+>        Exception: Your database has version '118' but this code expects version '129'.  Please backup your database and then migrate the schema by running 'sh manage_db.sh upgrade'.
+
+>         ./manage_db.sh upgrade
 
 
 **Structuration des "Handlers"** 
@@ -179,11 +208,14 @@ Ensuite :
 
 >         threadpool_kill_thread_limit = 10800
 
+Important à faire pour utiliser le port 8083 comme job handler.
 
 >         cp ./config/job_conf.xml.sample_basic ./config/job_conf.xml
 
 **Configuration de Apache pour le web balancing** 
 ***
+
+Voir plus bas pour la config complète au niveau de config apache proxy.
 
 http://jason.pureconcepts.net/2014/11/configure-apache-virtualhost-mac-os-x/
 
@@ -282,7 +314,7 @@ http://www.proftpd.org/docs/howto/Compiling.html
 >          Permer de tester
 >         sudo /usr/local/proftpd-1.3.5a/my_install/sbin/proftpd --config /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf -n -d 10
 
->         sudo su _postgres serveradmin start postgres
+>         sudo su _postgres serveradmin start postgres (marche pas en fait)
 >         sudo serveradmin stop postgres
 >         sudo serveradmin fullstatus postgres
 
@@ -305,7 +337,7 @@ Il fallait changer en fait X.X.X.X en localhost dans proftpd.conf .
 
 _Deux choses m'ont sauver la vie :_
 
-1- Dans Filezilla : choisir le mode actif. (Pourquoi ? Don't know)
+1- Dans Filezilla : choisir le mode actif. (Pourquoi ? Don't know ...si en fait ça vient de la plage configuré sur le serveur faudrait mettre les mêmes chiffres pour les ports passifs)
 2- Dans le /var/pgsql/postgresql.conf, le 'home' crée par galaxy pour le FTP avait pour propriétaire le root.
 
 http://www.proftpd.org/docs/directives/linked/config_ref_CreateHome.html
@@ -488,11 +520,15 @@ https://wiki.galaxyproject.org/Admin/DiskQuotas
 **Config Apache Proxy** 
 ***
 
+Dans /etc/apache2/httpd.conf :
+
+>        	LoadModule xsendfile_module libexec/apache2/mod_xsendfile.so
 
 Dans /galaxy.ini :
 
 >        	# -- Advanced proxy features
 >        	apache_xsendfile = True
+
 
 **[filter:proxy-prefix]**
 
