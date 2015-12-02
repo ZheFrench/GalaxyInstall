@@ -53,7 +53,7 @@ En fait , on veut avoir deux serveur en production sur lesquels on copie la base
 
 >         sudo launchctl load /Library/LaunchDaemons/edu.psu.galaxy_dev.GalaxyServer.plist (password)
 
-Depuis le prod (pour récupérer tout les users) : 
+Ce qu'on doit faire , depuis le prod (pour récupérer tout les users) : 
 >        pg_dump --host=localhost --username=postgres galaxy_prod > galaxy_prod.sql
 
 Sur les autres serveurs : 
@@ -74,10 +74,60 @@ Sur le 136 , problème de connexion acces denied.... obliger de faire un sudo m�
 >         ALTER ROLE admin CREATEDB CREATEROLE SUPERUSER;
 >         sudo dseditgroup -o edit -a $username_to_add -t user _postgres (jpense que juste ça suffit)
 
+Pour info postgres.conf sont pas utilisés...Tout est dans un plist compiler au lancement quand on appelle serveradmin.
+
+>         sudo nano /System/Library/LaunchDaemons/org.postgresql.postgres.plist
+
+>         <?xml version="1.0" encoding="UTF-8"?>
+>         <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+>         <plist version="1.0">
+>         <dict>
+>                 <key>Disabled</key>
+>                 <true/>
+>                 <key>GroupName</key>
+>                 <string>_postgres</string>
+>                 <key>Label</key>
+>                 <string>org.postgresql.postgres</string>
+>                 <key>OnDemand</key>
+>                 <false/>
+>                 <key>ProgramArguments</key>
+>                 <array>
+>                         <string>/usr/bin/postgres</string>
+>                         <string>-D</string>
+>                         <string>/var/pgsql</string>
+>                         <string>-c</string>
+>                         <string>listen_addresses=localhost</string>
+>                         <!--<string>-c</string>
+>                         <string>log_connections=on</string>-->
+>                         <string>-c</string>
+>                         <string>log_directory=/Library/Logs/PostgreSQL</string>
+>                         <string>-c</string>
+>                         <string>log_filename=PostgreSQL.log</string>
+>                         <string>-c</string>
+>                         <string>log_line_prefix=%t </string>
+>                         <string>-c</string>
+>                         <string>log_lock_waits=on</string>
+>                         <string>-c</string>
+>                         <string>log_statement=ddl</string>
+>                         <string>-c</string>
+>                         <string>logging_collector=on</string>
+>                         <string>-c</string>
+>                         <string>unix_socket_directory=/var/pgsql_socket</string>
+>                         <string>-c</string>
+>                         <string>unix_socket_group=_postgres</string>
+>                         <string>-c</string>
+>                         <string>unix_socket_permissions=0770</string>
+>                 </array>
+>                 <key>UserName</key>
+>                 <string>_postgres</string>
+>         </dict>
+>         </plist>
+
+
+Ensuite :
 
 >         mv galaxi.ini.sample galaxi.ini
-
->         database_connection=postgresql://galaxy_dev_user:galaxy_dev0112015@localhost/galaxy_dev0112015 (fichier galaxy.ini)
+>         database_connection=postgresql://galaxy_dev_user:galaxy_dev112015@localhost/galaxy_dev112015 (fichier galaxy.ini)
 
 
 
