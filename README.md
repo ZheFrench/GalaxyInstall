@@ -68,6 +68,11 @@ REVOKE
 ERROR:  role "postgres" does not exist
 ERROR:  role "postgres" does not exist
 
+Sur le 136 , problème de connexion acces denied.... obliger de faire un sudo même en adminuser.
+
+>         CREATE USER admin;
+>         ALTER ROLE admin CREATEDB CREATEROLE SUPERUSER;
+>         sudo dseditgroup -o edit -a $username_to_add -t user _postgres (jpense que juste ça suffit)
 
 
 >         mv galaxi.ini.sample galaxi.ini
