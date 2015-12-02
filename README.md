@@ -335,7 +335,7 @@ Il fallait changer en fait X.X.X.X en localhost dans proftpd.conf .
 
 **Ajout dans  /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf**
 
-_Deux choses m'ont sauver la vie :_
+_Deux choses m'ont sauvé la vie :_
 
 1- Dans Filezilla : choisir le mode actif. (Pourquoi ? Don't know ...si en fait ça vient de la plage configuré sur le serveur faudrait mettre les mêmes chiffres pour les ports passifs)
 2- Dans le /var/pgsql/postgresql.conf, le 'home' crée par galaxy pour le FTP avait pour propriétaire le root.
@@ -541,6 +541,8 @@ Dans /galaxy.ini :
 >        	cookie_path = /galaxy2015
 
 Dans /etc/apache2/vhosts/galaxy.dev.conf :
+
+Note : Sur le 136 j'ai du foutre l'ip du serveur pour que le rewrite se fasse....Ya des fichiers annexes .conf qui doivent interférer.
 
 >        	<VirtualHost *:80>
 >        	        DocumentRoot "/Library/WebServer/Documents"
