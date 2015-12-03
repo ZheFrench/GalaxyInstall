@@ -612,6 +612,34 @@ TODO
 
 **Purge Library/Dataset/History -> Cron Job** 
 ***
+Depuis le dossier root de galaxy : 
+Il faut rendre les scripts executables d'abord : (chmod +x)
+Ca execute _cleanup_datasets.py_ avec des parametres spéciaux.
+
+delete_userless_histories.sh
+purge_histories.sh
+purge_libraries.sh
+purge_folders.sh
+purge_datasets.sh (delete_datasets.sh peut être aussi utiliser quand on veut virer les datasets avant les histories/librairies)
+
+_Delete userless histories and datasets :_
+>        	python cleanup_datasets.py config/galaxy.ini -d 7 --delete_userless_histories -r
+
+_Purging Deleted Histories :_
+>        	python cleanup_datasets.py config/galaxy.ini -d 7 --purge_histories -r
+
+_Purging Libraries :_
+>        	python cleanup_datasets.py config/galaxy.ini -d 7 --purge_libraries -r
+
+_Purging Library Folders :_
+>        	python cleanup_datasets.py config/galaxy.ini -d 7 --purge_folders -r
+
+_Purging Deleted Datasets  :_
+>        	python cleanup_datasets.py config/galaxy.ini -d 7 --purge_datasets -r
+
+_Deleting Datasets / Purging Dataset Instances :_
+>        	python cleanup_datasets.py config/galaxy.ini -d 7 --delete_datasets -r
+
 
 TODO
 https://wiki.galaxyproject.org/Admin/Config/Performance/ProductionServer
