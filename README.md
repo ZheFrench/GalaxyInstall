@@ -608,7 +608,28 @@ Ensuite, via l'interface connecté en user root, Preferences/
 
 **Rotate the logs** 
 ***
-TODO
+
+>        	brew install logrotate
+>        	brew install cronlog
+
+>        	nano /usr/local/etc/logrotate.d/galaxy.conf
+
+>        	/Users/galaxy_dev_user/galaxy/*.log {
+>        	
+>        	  daily
+>        	  rotate 2
+>        	  copytruncate
+>        	  compress
+>        	  missingok
+>        	  notifempty
+>        	  mail Jean-Philippe.VILLEMIN@inserm.fr (marche pas)
+>        	}
+
+Le launchctl avec logrotate plante lourdement (socket is not connected..) donc je passe par un cron (le mailing foire aussi) :
+
+>        	* * * * * /usr/local/Cellar/logrotate/3.9.1/sbin/logrotate -v /usr/local/etc/logrotate.conf >> /Users/galaxy_dev_user/crontest/log.txt 2>&1
+
+
 
 **Purge Library/Dataset/History -> Cron Job** 
 ***
@@ -639,6 +660,8 @@ _Purging Deleted Datasets  :_
 
 _Deleting Datasets / Purging Dataset Instances :_
 >        	python cleanup_datasets.py config/galaxy.ini -d 7 --delete_datasets -r
+
+Ca ne vire absolument rien....
 
 
 TODO
