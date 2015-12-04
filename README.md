@@ -633,6 +633,20 @@ Test :
 Prod :
 >        	* * * * * /usr/local/Cellar/logrotate/3.9.1/sbin/logrotate /usr/local/etc/logrotate.conf
 
+**Config 1base pour 2 instances** 
+***
+
+On garde la base du 136 et sur les deux serveurs on fait : 
+
+>        	sudo nano /var/pgsql/pg_hba.conf
+
+>        	host    all             all             X.X.X.136/32            trust
+>        	host    all             all             X.X.X.137/32            trust
+
+Puis j'ai modifié dans le galaxy.ini sur le 137 l'adresse de connexion et le nom de la bdd:
+
+>         database_connection=postgresql://galaxy_dev_user:galaxy_112015@X.X.X.136/galaxy_112015 (fichier galaxy.ini)
+
 
 **Purge Library/Dataset/History -> Cron Job** 
 ***
