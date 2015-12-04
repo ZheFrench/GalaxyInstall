@@ -7,9 +7,10 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 3. Copie de l'ancienne BDD PostgreSQL de Galaxy
 4. Structuration des "Handlers"
 5. Authentification des utilisateurs
-6. Configuration FTP
-7. Config Apache Proxy
-8. Quotas & Config 
+6. Configuration de Apache pour le web balancing
+7. Configuration FTP
+8. Config Apache Proxy (suite 6)
+9. Quotas & Config 
 10. Purge Library/Dataset/History -> Cron Job
 11. Instance Galaxy Interne + Cluster Calcul Externe
 
