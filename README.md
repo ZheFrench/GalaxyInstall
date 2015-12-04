@@ -563,8 +563,11 @@ Note : Sur le 136 j'ai du foutre l'ip du serveur pour que le rewrite se fasse...
 >        	        RewriteRule ^/galaxy2015/robots.txt /Users/galaxy_dev_user/galaxy/static/robots.txt [L]
 
 >        	        <Proxy balancer://galaxy2015>
->        	            BalancerMember http://X.X.X.X:8081
->        	            BalancerMember http://X.X.X.X:8082
+>        	            BalancerMember http://X.X.X.136:8081
+>        	            BalancerMember http://X.X.X.136:8082
+>        	            # A rajouter dans un deuxieme temps quand on aura configuré une même base pour deux serveurs
+>        	            BalancerMember http://X.X.X.137:8081
+>        	            BalancerMember http://X.X.X.137:8082
 >        	        </Proxy>
 
 >        	        RewriteRule ^/galaxy2015(.*) balancer://galaxy2015$1 [P]
@@ -630,6 +633,13 @@ Ensuite, via l'interface connecté en user root, Preferences/
 >        	  notifempty
 >        	  mail Jean-Philippe.VILLEMIN@inserm.fr (marche pas)
 >        	}
+
+Logrotate a besoin de ce repertoire pour écrire.
+>        	  mkdir -p /usr/local/var/lib
+
+Comme on écrit avec le galaxy_dev_user pour éviter un plantage...
+>        	  chown galaxy_dev_user:staff /usr/local/var/lib/
+
 
 Le launchctl avec logrotate plante lourdement (socket is not connected..) donc je passe par un cron (le mailing foire aussi) :
 
