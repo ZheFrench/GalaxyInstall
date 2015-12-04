@@ -1,8 +1,17 @@
 # Galaxy Install - Prod - MAC OSX 10.7
 
-**1ère Mise à jour Juin 2015 du serveur 137**
-
 https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
+
+1. Download
+2. Installation de la dernière version de python et virtualenv
+3. Copie de l'ancienne BDD PostgreSQL de Galaxy
+4. Structuration des "Handlers"
+5. Authentification des utilisateurs
+6. Configuration FTP
+7. Config Apache Proxy
+8. Quotas & Config 
+10. Purge Library/Dataset/History -> Cron Job
+11. Instance Galaxy Interne + Cluster Calcul Externe
 
 **Download**
 ***
@@ -287,7 +296,6 @@ https://github.com/jlhg/galaxy-preinstall/blob/master/proftpd-galaxy.conf
 >         su davidbaux (Password)
 
 **Telechargement proFTPD et compilation** 
-***
 
 Pour compiler manuellement(c'est compliquer sur mac d'utiliser brew car il ne va pas vouloir de charger des modules avec la directive LoadModule) : 
 
@@ -605,7 +613,6 @@ Ensuite, via l'interface connecté en user root, Preferences/
 >        	allow_user_deletion = True
 
 **Rotate the logs** 
-***
 
 >        	brew install logrotate
 >        	brew install cronlog
@@ -631,8 +638,7 @@ Test :
 Prod :
 >        	* * * * * /usr/local/Cellar/logrotate/3.9.1/sbin/logrotate /usr/local/etc/logrotate.conf
 
-**Config 1base pour 2 instances** 
-***
+**Config 1 base pour 2 instances** 
 
 On garde la base du 136 et sur les deux serveurs on fait : 
 
