@@ -1,4 +1,4 @@
-# Galaxy Install - Prod - MAC OSX 10.7
+# Galaxy Install -  MAC OSX 10.7
 
 https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 
