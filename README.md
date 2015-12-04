@@ -616,8 +616,8 @@ Ensuite, via l'interface connecté en user root, Preferences/
 
 >        	/Users/galaxy_dev_user/galaxy/*.log {
 >        	
->        	  daily
->        	  rotate 2
+>        	  daily (faire un cron en accord avec ça - journalier du coup)
+>        	  rotate 2 ( conserve 2 zips des jours précedents)
 >        	  copytruncate
 >        	  compress
 >        	  missingok
@@ -627,8 +627,11 @@ Ensuite, via l'interface connecté en user root, Preferences/
 
 Le launchctl avec logrotate plante lourdement (socket is not connected..) donc je passe par un cron (le mailing foire aussi) :
 
->        	* * * * * /usr/local/Cellar/logrotate/3.9.1/sbin/logrotate -v /usr/local/etc/logrotate.conf >> /Users/galaxy_dev_user/crontest/log.txt 2>&1
+Test :
+>        	* * * * * /usr/local/Cellar/logrotate/3.9.1/sbin/logrotate -v -f /usr/local/etc/logrotate.conf >> /Users/galaxy_dev_user/crontest/log.txt 2>&1
 
+Prod :
+>        	* * * * * /usr/local/Cellar/logrotate/3.9.1/sbin/logrotate /usr/local/etc/logrotate.conf
 
 
 **Purge Library/Dataset/History -> Cron Job** 
