@@ -511,11 +511,6 @@ Creation de lgm.proftpd.profpd.plist ds /usr/local/proftpf-1.3.5a/my_install :
 >         </dict>
 >         </plist>
 
-**QUOTAS** 
-***
-
-TODO
-https://wiki.galaxyproject.org/Admin/DiskQuotas
 
 **Config Apache Proxy** 
 ***
@@ -593,6 +588,9 @@ Note : Sur le 136 j'ai du foutre l'ip du serveur pour que le rewrite se fasse...
 
 **Quotas & Config ** 
 ***
+
+https://wiki.galaxyproject.org/Admin/DiskQuotas
+
 >        	[app:main]
 >        	enable_quotas = True
 >        	allow_user_dataset_purge = True
@@ -644,6 +642,8 @@ On garde la base du 136 et sur les deux serveurs on fait :
 >        	host    all             all             X.X.X.137/32            trust
 
 Puis j'ai modifié dans le galaxy.ini sur le 137 l'adresse de connexion et le nom de la bdd:
+Pour que ca marche il faut aussi que deux galaxy_dev_user soit crée sur les deux bdd postgres au préalable.
+
 
 >         database_connection=postgresql://galaxy_dev_user:galaxy_112015@X.X.X.136/galaxy_112015 (fichier galaxy.ini)
 
@@ -680,8 +680,6 @@ _Deleting Datasets / Purging Dataset Instances :_
 
 Ca ne vire absolument rien....
 
-
-TODO
 https://wiki.galaxyproject.org/Admin/Config/Performance/ProductionServer
 https://wiki.galaxyproject.org/Admin/Config/Performance/Purge%20Histories%20and%20Datasets
 
