@@ -592,6 +592,14 @@ Note : Sur le 136 j'ai du foutre l'ip du serveur pour que le rewrite se fasse...
  >        	               XSendFile on
  >        	               XSendFileAllowAbove on
  >        	       </Location>
+ >        	         <Location /balancer-manager>
+ >        	          SetHandler balancer-manager
+ >        	          Order Deny,Allow
+ >        	          Deny from all
+ >        	          Allow from $youripclient
+ >        	          </Location>
+                       
+
 
  >        	       <Directory "/Users/galaxy_dev_user/galaxy/database/files/">
  >        	               AllowOverride Fileinfo
