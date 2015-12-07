@@ -714,6 +714,20 @@ https://wiki.galaxyproject.org/Admin/Config/Performance/Purge%20Histories%20and%
 
 https://github.com/galaxyproject/pulsar
 
+Lol c'est inbuvable.
+
+Très peu de doc, en tout cas pas assez à mon gout.
+De plus , si on veut adapter nos pipeline au cluster, c'est la merde.
+Dans l'idée je voulais faire un tool unique du pipeline.... Dans le pipeline, chaque outil (bwa,gatk...) utilise des ressources/nbre de noeuds spécifiques à chaque fois.
+Pour faire ça avec Galaxy , il faudrait décomposer le pipeline. C'est à dire qu'il faudrait installer chaque outil via le toolshed par exemple puis ensuite faire un worklow. Sur chaque outil dans le job_conf.xml il serait ensuite possible de spécifier combien de coeurs, de mémoire on utilise pour chaque outil du workflow.
+Bref niveau investissement temps / bénéfice...bah autant faire une interface qui lance un script bash qui va s'executer sur le cluster.
+Rohh les fous...
+
+
+https://github.com/galaxyproject/usegalaxy-playbook/blob/master/templates/galaxy/usegalaxy.org/config/job_conf.xml.j2
+https://pulsar.readthedocs.org/en/latest/galaxy_conf.html#targeting-a-linux-cluster-pulsar-web-server
+https://github.com/galaxyproject/galaxy/blob/master/config/job_conf.xml.sample_advanced
+https://wiki.galaxyproject.org/Events/GCC2014/TrainingDay/AdminWalkthrough#Installing_Pulsar_with_Ansible
 
 
 
