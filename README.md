@@ -565,9 +565,10 @@ Note : Sur le 136 j'ai du foutre l'ip du serveur pour que le rewrite se fasse...
 >        	        <Proxy balancer://galaxy2015>
 >        	            BalancerMember http://X.X.X.136:8081
 >        	            BalancerMember http://X.X.X.136:8082
->        	            # A rajouter dans un deuxieme temps quand on aura configuré une même base pour deux serveurs
->        	            BalancerMember http://X.X.X.137:8081
->        	            BalancerMember http://X.X.X.137:8082
+>        	            # Si tu mets les 4, tu auras des latences, je pense pas que ce soit une bonne idée de croiser
+>        	            
+>        	            #BalancerMember http://X.X.X.137:8081
+>        	            #BalancerMember http://X.X.X.137:8082
 >        	        </Proxy>
 
 >        	        RewriteRule ^/galaxy2015(.*) balancer://galaxy2015$1 [P]
