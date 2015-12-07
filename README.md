@@ -566,7 +566,7 @@ Note : Sur le 136 j'ai du foutre l'ip du serveur pour que le rewrite se fasse...
 >        	            BalancerMember http://X.X.X.136:8081
 >        	            BalancerMember http://X.X.X.136:8082
 >        	            # Si tu mets les 4, tu auras des latences, je pense pas que ce soit une bonne idée de croiser
->        	            
+>        	            #http://X.X.X.X/balancer-manager pour voir comment ça gere les requetes
 >        	            #BalancerMember http://X.X.X.137:8081
 >        	            #BalancerMember http://X.X.X.137:8082
 >        	        </Proxy>
