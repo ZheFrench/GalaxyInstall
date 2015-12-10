@@ -568,8 +568,8 @@ Note : Sur le 136 j'ai du foutre l'ip du serveur pour que le rewrite se fasse...
 >        	            BalancerMember http://X.X.X.136:8082
 >        	            # Si tu mets les 4, tu auras des latences, je pense pas que ce soit une bonne idée de croiser
 >        	            #http://X.X.X.X/balancer-manager pour voir comment ça gere les requetes
->        	            #BalancerMember http://X.X.X.137:8081
->        	            #BalancerMember http://X.X.X.137:8082
+>        	            #BalancerMember http://X.X.X.137:8081 timeout=3 connectiontimeout=3 ( a placer sur l'ip du serveur distant)
+>        	            #BalancerMember http://X.X.X.137:8082 timeout=3 connectiontimeout=3
 >        	        </Proxy>
 
 >        	        RewriteRule ^/galaxy2015(.*) balancer://galaxy2015$1 [P]
@@ -677,35 +677,29 @@ Pour que ca marche il faut aussi que deux galaxy_dev_user soit crée sur les deu
 
 **Purge Library/Dataset/History -> Cron Job** 
 ***
-Depuis le dossier root de galaxy : 
-Il faut rendre les scripts executables d'abord : (chmod +x)
-Ca execute _cleanup_datasets.py_ avec des parametres spéciaux.
+Depuis le dossier root de galaxy :
 
-delete_userless_histories.sh
-purge_histories.sh
-purge_libraries.sh
-purge_folders.sh
-purge_datasets.sh (delete_datasets.sh peut être aussi utiliser quand on veut virer les datasets avant les histories/librairies)
+J'ai fais un script qui regroupe toutes ces commandes dans scripts/clean_dataset/ : _all_custom_cleaning.sh_
 
 _Delete userless histories and datasets :_
->        	python cleanup_datasets.py config/galaxy.ini -d 7 --delete_userless_histories -r
+>        	python cleanup_datasets.py config/galaxy.ini -d 0 --delete_userless_histories -r
 
 _Purging Deleted Histories :_
->        	python cleanup_datasets.py config/galaxy.ini -d 7 --purge_histories -r
+>        	python cleanup_datasets.py config/galaxy.ini -d 0 --purge_histories -r
 
 _Purging Libraries :_
->        	python cleanup_datasets.py config/galaxy.ini -d 7 --purge_libraries -r
+>        	python cleanup_datasets.py config/galaxy.ini -d 0 --purge_libraries -r
 
 _Purging Library Folders :_
->        	python cleanup_datasets.py config/galaxy.ini -d 7 --purge_folders -r
+>        	python cleanup_datasets.py config/galaxy.ini -d 0 --purge_folders -r
 
 _Purging Deleted Datasets  :_
->        	python cleanup_datasets.py config/galaxy.ini -d 7 --purge_datasets -r
+>        	python cleanup_datasets.py config/galaxy.ini -d 0 --purge_datasets -r
 
 _Deleting Datasets / Purging Dataset Instances :_
->        	python cleanup_datasets.py config/galaxy.ini -d 7 --delete_datasets -r
+>        	python cleanup_datasets.py config/galaxy.ini -d 0 --delete_datasets -r
 
-Ca ne vire absolument rien....
+Ca ne vire absolument rien.... A voir... Je le fais sur les 2 db.
 
 https://wiki.galaxyproject.org/Admin/Config/Performance/ProductionServer
 https://wiki.galaxyproject.org/Admin/Config/Performance/Purge%20Histories%20and%20Datasets
