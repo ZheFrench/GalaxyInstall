@@ -737,4 +737,9 @@ Les éléments à migrer sont répartis dans 3 dossiers  :
 
 Dans les xml des softs modifier le path vers les images , ajouter /CUSTOM/JP/
 
+On a monté un repertoir depuis le  du X.X.X.150 sur 136 et 137.
+Dans Galaxy.ini on a configuré plusieurs paths vers ce repertoire pour qu'il soit partagé entre les instances.
+
+
+
 
