@@ -368,6 +368,8 @@ Ca j'ai rien compris, c'était présent dans les configurations fournis par le G
 
 http://www.proftpd.org/docs/howto/Limit.html
 
+_Attention :_ Pour le 137 l'user est uid 516, et sur le 136 il est 1052. A modifier dans le fichier en fonction du serveur.
+
 >        # ProFTPD configuration for Galaxy FTP
 
 >        ServerName                      "FTP use with Galaxy'"
