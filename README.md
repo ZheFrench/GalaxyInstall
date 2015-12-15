@@ -311,7 +311,7 @@ http://www.proftpd.org/docs/howto/Compiling.html
 
 >         cd proftpd-1.3.5a/
 
-> Note pour le 136 ->  /1.0.2d_1 et le 137 -> /1.0.2c A changer deux fois dans la ligne suivante :
+>         A changer deux fois dans la ligne suivante : pour le 136 ->  /1.0.2d_1 et le 137 -> /1.0.2c 
 
 >         ./configure --prefix=/usr/local/proftpd-1.3.5a/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/Cellar/openssl/1.0.2c/include --with-libraries=/usr/lib/postgresql:/usr/local/Cellar/openssl/1.0.2c/lib 
 
