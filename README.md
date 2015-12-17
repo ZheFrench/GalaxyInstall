@@ -313,7 +313,30 @@ http://www.proftpd.org/docs/howto/Compiling.html
 
 >         A changer deux fois dans la ligne suivante : pour le 136 ->  /1.0.2d_1 et le 137 -> /1.0.2c 
 
->         ./configure --prefix=/usr/local/proftpd-1.3.5a/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/Cellar/openssl/1.0.2c/include --with-libraries=/usr/lib/postgresql:/usr/local/Cellar/openssl/1.0.2c/lib 
+
+
+J'ai essayé de le finter en deplacant la vieille version de openssql
+
+>         sudo mv /usr/bin/openssl /usr/bin/openssl_OLD
+>         sudo ln -s /usr/local/Cellar/openssl/1.0.2d_1/bin/openssl /usr/bin/openssl
+
+Ca ne marchait pas alorw je suis passé sur une autre idée : 
+
+J'ai téléchargé openssl-1.01.tar.gz , j'ai installé ça salement dans /usr/bin/opennsql1.01.q. Repertoire que j'ai crée.
+Puis : 
+
+
+>         sudo ./Configure darwin64-x86_64-cc --openssldir=/usr/local/openssl_1.01q
+>         sudo make
+>         sudo make test
+>         sudo make install
+
+Ca ne marche pas....
+>         ./configure --prefix=/usr/local/proftpd-1.3.5a/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/openssl_1.01q/include --with-libraries=/usr/lib/postgresql:/usr/local/openssl_1.01q/lib
+
+Ca marche tres bien sur le 137.
+        ./configure --prefix=/usr/local/proftpd-1.3.5a/my_install --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-includes=/usr/include/postgresql:/usr/local/Cellar/openssl/1.0.2d_1/include --with-libraries=/usr/lib/postgresql:/usr/local/Cellar/openssl/1.0.2d_1/lib 
+/usr/local/openssl_1.01q
 
 >         make 
 
@@ -326,7 +349,12 @@ http://www.proftpd.org/docs/howto/Compiling.html
 >          Permer de tester :
 
 >         sudo /usr/local/proftpd-1.3.5a/my_install/sbin/proftpd --config /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf -n -d 10
->          Pour le lancer en Daemon, créer un fichier et le placer dans /Library/LaunchDaemons : 
+
+
+sudo mv /usr/bin/openssl /usr/bin/openssl_OLD
+ln -s /usr/local/Cellar/openssl/1.0.2d_1/bin/openssl /usr/bin/openssl
+
+Pour le lancer en Daemon, créer un fichier et le placer dans /Library/LaunchDaemons : 
 
 >          <?xml version="1.0" encoding="UTF-8"?>
 >          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd
