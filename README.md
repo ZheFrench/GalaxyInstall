@@ -323,12 +323,60 @@ http://www.proftpd.org/docs/howto/Compiling.html
 
 >         sudo mkdir /usr/local/proftpd-1.3.5a/my_install/var/log
 
->          Permer de tester
+>          Permer de tester :
+
 >         sudo /usr/local/proftpd-1.3.5a/my_install/sbin/proftpd --config /usr/local/proftpd-1.3.5a/my_install/etc/proftpd.conf -n -d 10
+>          Pour le lancer en Daemon, créer un fichier et le placer dans /Library/LaunchDaemons : 
+
+>          <?xml version="1.0" encoding="UTF-8"?>
+>          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd
+>          ">
+>          <plist version="1.0">
+>          <dict>
+>                  <key>KeepAlive</key>
+>                  <dict>
+>                          <key>SuccessfulExit</key>
+>                          <true/>
+>                  </dict>
+>                  <key>Label</key>
+>                  <string>org.proftpd.proftpd</string>
+>                  <key>ProgramArguments</key>
+>                  <array>
+>                          <string>/usr/local/proftpd-1.3.5a/my_install/sbin/proftpd</string>
+>                          <string>-n</string>
+>                  </array>
+>                  <key>RunAtLoad</key>
+>                  <true/>
+>          </dict>
+>          </plist>
+
+>          sudo launchctl load /Library/LaunchDaemons/lgm.proftpd.proftpd.plist
+
+Note pour postgres : 
 
 >         sudo su _postgres serveradmin start postgres (marche pas en fait)
 >         sudo serveradmin stop postgres
 >         sudo serveradmin fullstatus postgres
+
+Note pour le brew installé via brew : 
+
+>         2-1bb:galaxy galaxy_dev_user$ brew info proftpd
+>         proftpd: stable 1.3.4d
+>         Highly configurable GPL-licensed FTP server software
+http://www.proftpd.org/
+>         /usr/local/Cellar/proftpd/1.3.4d (87 files, 2,8M) *
+>           Built from source
+>         From: https://github.com/Homebrew/homebrew/blob/master/Library/Formula/proftpd.rb
+>         ==> Caveats
+>         The config file is in:
+>            /usr/local/etc/proftpd.conf
+
+>         proftpd may need to be run as root, depending on configuration
+>         To have launchd start proftpd at login:
+>             mkdir -p ~/Library/LaunchAgents
+>             ln -sfv /usr/local/opt/proftpd/*.plist ~/Library/LaunchAgents
+>         Then to load proftpd now:
+>             launchctl load ~/Library/LaunchAgents/homebrew.mxcl.proftpd.plist
 
 
 Ca deconne, pourquoi ? Ca ma permis de comprendre :
@@ -368,7 +416,7 @@ Ca j'ai rien compris, c'était présent dans les configurations fournis par le G
 
 http://www.proftpd.org/docs/howto/Limit.html
 
-_Attention :_ Pour le 137 l'user est uid 516, et sur le 136 il est 1052. A modifier dans le fichier en fonction du serveur.
+_Attention :_ Pour le 137 l'user est uid 516, et sur le 136 il est 1025. A modifier dans le fichier en fonction du serveur.
 
 >        # ProFTPD configuration for Galaxy FTP
 
