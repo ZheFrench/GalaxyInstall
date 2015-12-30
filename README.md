@@ -789,7 +789,7 @@ https://wiki.galaxyproject.org/Admin/Config/Performance/Purge%20Histories%20and%
 
 https://github.com/galaxyproject/pulsar
 
-Lol c'est inbuvable.
+C'est inbuvable.
 
 Très peu de doc, en tout cas pas assez à mon gout.
 De plus , si on veut adapter nos pipeline au cluster, c'est la merde.
@@ -804,7 +804,7 @@ https://pulsar.readthedocs.org/en/latest/galaxy_conf.html#targeting-a-linux-clus
 https://github.com/galaxyproject/galaxy/blob/master/config/job_conf.xml.sample_advanced
 https://wiki.galaxyproject.org/Events/GCC2014/TrainingDay/AdminWalkthrough#Installing_Pulsar_with_Ansible
 
-**Migration / Reorganisation des outils développés
+**Migration / Reorganisation des outils développés**
 ***
 
 Dans config/galaxy.ini , ajouter config/tool_conf_iurc.xml et copier tool_conf_iurc.xml dans le repertoire config: 
@@ -815,10 +815,8 @@ Les éléments à migrer sont répartis dans 3 dossiers  :
 2. tool-data
 3. /images
 
-Dans les xml des softs modifier le path vers les images , ajouter /CUSTOM/JP/
+Dans les xml des softs, modifier le path vers les images , ajouter /CUSTOM/JP/
 
-On a monté un repertoir depuis le  du X.X.X.150 sur 136 et 137.
-Dans Galaxy.ini on a configuré plusieurs paths vers ce repertoire pour qu'il soit partagé entre les instances.
 
 
 
