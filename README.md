@@ -16,6 +16,10 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 12. Migration / Reorganisation des outils développés
 13. Object Store
 
+NB: Pour redemarrer le ftp : 
+ >         sudo launchctl load /Library/LaunchDaemons/lgm.proftpd.proftpd.plist
+
+
 **Download**
 ***
 
