@@ -14,6 +14,7 @@ https://wiki.galaxyproject.org/ReleaseAndUpdateProcess
 10. Purge Library/Dataset/History -> Cron Job
 11. Instance Galaxy Interne + Cluster Calcul Externe
 12. Migration / Reorganisation des outils développés
+13. Object Store
 
 **Download**
 ***
@@ -816,6 +817,40 @@ Les éléments à migrer sont répartis dans 3 dossiers  :
 3. /images
 
 Dans les xml des softs, modifier le path vers les images , ajouter /CUSTOM/JP/
+
+13. Object Store
+
+dans galaxy.ini j'ai décomenté : 
+>        	object_store_config_file = config/object_store_conf.xml
+
+Dans le dossier galaxy, j'ai linké un dossier vers l'autre disque
+
+>        	ln -s /Volumes/HD2/ database2
+
+Dans l' object_store_conf.xml
+
+>          <?xml version="1.0"?>
+>          <object_store type="hierarchical">
+>              <backends>
+>                  <object_store type="distributed" id="primary" order="0">
+>                      <backends>
+>                          <backend id="files1" type="disk" weight="1">
+>                              <files_dir path="database/files"/>
+>                              <extra_dir type="temp" path="database/tmp"/>
+>                              <extra_dir type="job_work" path="database/job_working_directory"/>
+>                          </backend>
+>                          <backend id="files2" type="disk" weight="2">
+>                              <files_dir path="database2/galaxy/files"/>
+>                              <extra_dir type="temp" path="database2/galaxy/tmp"/>
+>                              <extra_dir type="job_work" path="database2/galaxy/job_working_directory"/>
+>                          </backend>
+>                      </backends>
+>                  </object_store>
+>              </backends>
+>          </object_store>
+
+
+
 
 
 
